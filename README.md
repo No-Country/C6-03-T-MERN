@@ -1,18 +1,22 @@
-# C6-03-T-MERN
+# Cohorte 6 - Grupo 3 - Turno Tarde - Tecnologias: MERN
 
-Integrantes y principales tecnologías que maneja:
+## Integrantes:
+
 - Enuel Monzón O:
-  React, MySQL, Express, CSS, Node
-  Función actual: Frontend
+  - Skills: React, MySQL, Express, CSS, Node
+  - Función actual: Frontend
 - Diego Nicita:
-  React, MySQL, Express, CSS, Node
-  Funcion actual: Frontend
+  - Skills: React, MySQL, Express, CSS, Node
+  - Funcion actual: Frontend
 - German Himmelfroundpointener:
-  MongoDB, Javascript, Css, Bootstrap, Node
-  Funcion actual: Backend
+  - Skills: MongoDB, Javascript, HTML5, CSS3, Bootstrap, Node
+  - Funcion actual: Backend
 - Juan Cruz Ises:
-  React , MySQL, Express, CSS, Node
-  Funcion actual: Backend
+  - Skills: React , MySQL, Express, HTML5, CSS3, Node
+  - Funcion actual: Backend
 - Gimena:
-  UX-UI, Frontend
-  Funcion actual: UX-UI
+  - Skills: UX-UI, Frontend, HTML5, CSS3
+  - Funcion actual: UX-UI
+- Jackson Avila: 
+  - Skills: React, Javascript, HTML5, CSS3
+  - Funcion actual: Frontend
