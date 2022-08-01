@@ -1,7 +1,7 @@
 # C6-03-T-MERN
 
 Integrantes y principales tecnologías que maneja:
-- Enuel Monzón:
+- Enuel Monzón O:
 -	React, MySQL, Express, CSS, Node
 -	Función actual: Frontend
 -Diego Nicita:
