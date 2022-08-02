@@ -6,7 +6,7 @@
   - Skills: React, MySQL, Express, CSS, Node
   - Función actual: Frontend
 - Diego Nicita:
-  - Skills: React, MySQL, Express, CSS, Node
+  - Skills: React, MySQL, Express, CSS, Node, C#
   - Funcion actual: Frontend
 - German Himmelfroundpointener:
   - Skills: MongoDB, Javascript, HTML5, CSS3, Bootstrap, Node
@@ -14,9 +14,12 @@
 - Juan Cruz Ises:
   - Skills: React , MySQL, Express, HTML5, CSS3, Node
   - Funcion actual: Backend
-- Gimena:
-  - Skills: UX-UI, Frontend, HTML5, CSS3
+- Gimena Vilches:
+  - Skills: React, Diseño UX/UI, HTML5, CSS3, Python, 
   - Funcion actual: UX-UI
 - Jackson Avila: 
-  - Skills: React, Javascript, HTML5, CSS3
+  - Skills: React, Javascript, HTML5, CSS3, Python, Django
   - Funcion actual: Frontend
+- Jose:
+   - Skils: React
+   - Funcion actual: Frontend
