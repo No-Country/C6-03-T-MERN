@@ -13,15 +13,15 @@
   - "Como Usuario, quiero poder dejar asentado cualquier tipo de informacion relevante para todo el equipo"
   - "Como Usuario, quiero poder asignarle una valor a los tickets de tarea para estimar el esfuerzo que se necesitara para desarrollarlos"
   - "Como Usuario, quiero conocer que tickets de tarea sobrepasaron su tiempo estimado de desarrollo y que otras estan cerca de alcanzarlo"
-  - "Como Usuario, quiero poder ver los estados de conexion del resto de los integrantes del equipo"  
+  - "Como Usuario, quiero poder ver los estados de conexion del resto de los integrantes del equipo".
 
-- **Como Administrador**: 
+- **Como Administrador**:
 
   - "Como Administrador, quiero poder registrar con usuario y contraseña a los desarrolladores de la empresa para generarles una cuenta"
   - "Como Administrador, quiero poder crear tickets de tarea de forma simple y completa, para individualizar las tareas entre los distintos roles de los desarrolladores"
   - "Como Administrador, quiero que los desarrolladores cuenten con una herramienta que les contabilice el tiempo de trabajo, para llevar un mejor control del tiempo destinado al proyecto por cada uno de los desarrolladores"
   - "Como Administrador, quiero poder contar con una division de facil acceso a las distintas areas de trabajo dentro de mi equipo"
-  
+
 ## Integrantes:
 
 - Enuel Monzón O:
@@ -37,14 +37,14 @@
   - Skills: React , MySQL, Express, HTML5, CSS3, Node
   - Funcion actual: Back End
 - Gimena Vilches:
-  - Skills: React, Diseño UX/UI, HTML5, CSS3, Python, 
+  - Skills: React, Diseño UX/UI, HTML5, CSS3, Python,
   - Funcion actual: UX-UI
-- Jackson Avila: 
+- Jackson Avila:
   - Skills: React, Javascript, HTML5, CSS3, Python, Django
   - Funcion actual: Front End
 - Jose Ignacio Pareja:
-   - Skils: React
-   - Funcion actual: Front End
+  - Skils: React
+  - Funcion actual: Front End
 - Jose Carlos Pérez
-   - Funcion : Front End   
-   - Skills: React, MongoDB, Express, HTML5, CSS3, Node
+  - Funcion : Front End
+  - Skills: React, MongoDB, Express, HTML5, CSS3, Node
