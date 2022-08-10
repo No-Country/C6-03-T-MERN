@@ -6,7 +6,7 @@ const projectSchema = new Schema({
   name: {
     type: String,
     required: true
-  },  
+  },
   uuidv4: {
     type: String,
     required: true
@@ -14,9 +14,19 @@ const projectSchema = new Schema({
   users: {
     type: Array,
     required: true,
-    default: [],
-    }, 
+    default: []
+  },
+  calendars: {
+    type: Array,
+    required: true,
+    default: []
+  },
+  notes: {
+    type: Array,
+    required: true,
+    default: []
+  }
 })
 
-const Project = mongoose.model('Task', projectSchema)
+const Project = mongoose.model('Project', projectSchema)
 module.exports = Project
