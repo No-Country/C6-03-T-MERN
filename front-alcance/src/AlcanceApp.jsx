@@ -1,7 +1,11 @@
+import { BrowserRouter } from "react-router-dom"
+import { AppRouter } from "./router"
 
 
 export const AlcanceApp = () => {
   return (
-    <div>AlcanceApp</div>
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
   )
 }
