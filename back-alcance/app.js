@@ -1,5 +1,7 @@
 const express = require('express')
 const path = require('path')
+const cors = require('cors')
+
 // Mongoose is a library that allows us to connect to a MongoDB database
 const mongoose = require('mongoose')
 // Enviroment variables
