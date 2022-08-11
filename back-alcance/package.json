@@ -1,0 +1,31 @@
+{
+  "name": "alcance",
+  "version": "1.0.0",
+  "description": "alcance app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/No-Country/C6-03-T-MERN.git"
+  },
+  "keywords": [
+    "alcance",
+    "project",
+    "teams"
+  ],
+  "author": "grupo c6-03-t-mern",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/No-Country/C6-03-T-MERN/issues"
+  },
+  "homepage": "https://github.com/No-Country/C6-03-T-MERN#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.5.2"
+  }
+}
