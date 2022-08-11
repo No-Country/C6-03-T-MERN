@@ -1,11 +1,14 @@
 const User = require('../models/User')
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const controller = {
   create: async (req, res) => {
+    let hash = await bcrypt.hash("123456", saltRounds);    
     const user = new User({
       username: 'Juan' + Math.floor(Math.random() * 1000),
       email: 'pepe' + Math.random() + '@gmail.com',
-      password: '123456',
+      password: hash,
       role: 'user',
       country: 'Argentina'
     })
@@ -25,7 +28,6 @@ const controller = {
             }
         }).sort({ _id: -1 })
         },
-
   login: (req, res) => {
     User.findOne({ email: req.body.email }, (error, user) => {
       if (error) {
