@@ -1,7 +1,7 @@
-const User = require('../Models/User')
+const User = require('../models/User')
 
 const controller = {
-  create: (req, res) => {
+  create: async (req, res) => {
     const user = new User({
       username: 'Juan' + Math.floor(Math.random() * 1000),
       email: 'pepe' + Math.random() + '@gmail.com',
@@ -10,8 +10,8 @@ const controller = {
       country: 'Argentina'
     })
     try {
-      user.save()
-      res.send(user)
+      await user.save()
+      res.json(user)
     } catch (error) {
       res.send(error)
     }
@@ -19,13 +19,30 @@ const controller = {
   list: (req, res) => {    
         User.find({}, (error, users) => {
             if (error) {
-            res.send(error)
+            res.json(error)
             } else {
             res.send(users)
             }
         }).sort({ _id: -1 })
-        }
+        },
 
+  login: (req, res) => {
+    User.findOne({ email: req.body.email }, (error, user) => {
+      if (error) {
+        res.send(error)
+      } else {
+        if (user) {
+          if (user.password === req.body.password) {
+            res.send(user)
+          } else {
+            res.send('Password incorrecto')
+          }
+        } else {
+          res.send('Usuario no encontrado')
+        }
+      }
+    }).sort({ _id: -1 })
+  }
 }
 
 module.exports = controller

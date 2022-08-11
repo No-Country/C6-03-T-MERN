@@ -1,7 +1,7 @@
-const Project = require('../Models/Project')
+const Project = require('../models/Project')
 
 const controller = {
-  create: (req, res) => {
+  create: async (req, res) => {
     const project = new Project({
       name: 'Proyecto' + Math.floor(Math.random() * 1000),
       uuidv4: '123456' + Math.random(),
@@ -10,7 +10,7 @@ const controller = {
       notes: []
     })
     try {
-      project.save()
+      await project.save()
       res.send(project)
     } catch (error) {
       res.send(error)
