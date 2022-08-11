@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-
 const Schema = mongoose.Schema
 
 const taskSchema = new Schema({
@@ -11,10 +10,10 @@ const taskSchema = new Schema({
     type: String,
     required: true
   },
-  startTime: {
-    type: Date,
-    required: true
-  },
+  // startTime: {
+  //   type: Date,
+  //   required: true
+  // },
   endTime: {
     type: Date,
     required: true
@@ -35,5 +34,5 @@ const taskSchema = new Schema({
   }
 })
 
-const Task = mongoose.model('Task', taskSchema)
-module.exports = Task
+const Task = mongoose.model('Task', taskSchema);
+module.exports = Task;
