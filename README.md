@@ -36,9 +36,6 @@
 - Juan Cruz Ises:
   - Skills: React , MySQL, Express, HTML5, CSS3, Node
   - Funcion actual: Back End
-- Gimena Vilches:
-  - Skills: React, Diseño UX/UI, HTML5, CSS3, Python,
-  - Funcion actual: UX-UI
 - Jackson Avila:
   - Skills: React, Javascript, HTML5, CSS3, Python, Django
   - Funcion actual: Front End
