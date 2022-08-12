@@ -11,8 +11,9 @@ const tasksController = {
             title : req.body.title,
             description : req.body.description,
             endTime : req.body.endTime,
-            projectId : req.body.projectId,
+            kanbanId : req.body.kanbanId,
             userId : req.body.userId,
+            difficulty: req.body.difficulty,
             taskState : req.body.taskState
         })
         console.log(task)  
@@ -20,8 +21,8 @@ const tasksController = {
         res.json({status: 'Task Save'})
     },
     editTask : async (req, res) =>{
-        const { title, description, endTime, projectId, userId, taskState } = req.body;
-        const newTask = { title, description, endTime, projectId, userId, taskState }
+        const { title, description, endTime, kanbanId, userId, difficulty, taskState } = req.body;
+        const newTask = { title, description, endTime, kanbanId, userId, difficulty, taskState }
 
         await Task.findByIdAndUpdate(req.params.id, newTask)
         res.json({status : 'Task updated'}) 

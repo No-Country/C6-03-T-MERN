@@ -3,11 +3,8 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 const usersController = {
-  registerView : (req, res) =>{
-
-  },
-  userRegister : async (req, res) => {
-    let hash = await bcrypt.hash(req.body.password, saltRounds);    
+  registerProcess: async (req, res) => {
+    let hash = await bcrypt.hash(req.body.password, saltRounds);
     const user = new User({
       username: req.body.username,
       password: hash,
@@ -17,24 +14,29 @@ const usersController = {
     })
     try {
       await user.save()
-      res.json(user)
+      res.json({
+        user: user,
+        msg: 'User created'
+      })
     } catch (error) {
       res.send(error)
     }
   },
-  loginView : (req, res) =>{
-
-  },  
-  userLogin: (req, res) => {
+  loginProcess: (req, res) => {
     User.findOne({ email: req.body.email }, (error, user) => {
       if (error) {
         res.send(error)
       } else {
         if (user) {
-          if (user.password === req.body.password) {
-            res.send(user)
+          if (bcrypt.compareSync(req.body.password, user.password)) {
+            res.json({
+              user: user,
+              msg: 'Login success'
+            })
           } else {
-            res.send('Password incorrecto')
+            res.json({
+              msg: 'Password incorrecto'
+            })
           }
         } else {
           res.send('Usuario no encontrado')
@@ -42,30 +44,32 @@ const usersController = {
       }
     }).sort({ _id: -1 })
   },
-  userList: (req, res) => {    
-     User.find({}, (error, users) => {
-        if (error) {
-          res.json(error)
-        } else {
-          res.send(users)
-        }
-      }).sort({ _id: -1 })
+  userList: (req, res) => {
+    User.find({}, (error, users) => {
+      if (error) {
+        res.json(error)
+      } else {
+        res.json(users)
+      }
+    }).sort({ _id: -1 })
   },
-  findOneUser : async(req, res) =>{
+  findOneUser: async (req, res) => {
     const user = await User.findById(req.params.id)
-    res.json({status: user})
+    res.json({
+      user: user
+    })
   },
-  userEdit : async (req, res) =>{
+  userEdit: async (req, res) => {
     const { username, password, role, email, country } = req.body;
     const editUser = { username, password, role, email, country }
-   
+
     await User.findByIdAndUpdate(req.params.id, editUser)
-    res.json({status : 'User updated'}) 
+    res.json({ status: 'User updated' })
   },
-  userDelete : async (req, res)=>{
+  userDelete: async (req, res) => {
     await User.findByIdAndDelete(req.params.id);
-    res.json({status : 'User deleted'})
-}
+    res.json({ status: 'User deleted' })
+  }
 }
 
 module.exports = usersController;

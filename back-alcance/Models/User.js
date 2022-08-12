@@ -48,6 +48,9 @@ const userSchema = new Schema({
         'Uruguay',
         'Otro'
       ]   
+  },
+  projectId: {
+    type: Array, 
   }
 })
 

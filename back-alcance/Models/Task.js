@@ -10,21 +10,21 @@ const taskSchema = new Schema({
     type: String,
     required: true
   },
-  // startTime: {
-  //   type: Date,
-  //   required: true
-  // },
   endTime: {
     type: Date,
     required: true
   },
-  projectId: {
+  kanbanId: {
     type: String,
     required: true
   },
   userId: {
+    type: Array
+  },
+  difficulty: {
     type: String,
-    required: true
+    enum: ['Simple', 'Media', 'Compleja'],
+    default: 'Simple'
   },
   taskState: {
     type: String,

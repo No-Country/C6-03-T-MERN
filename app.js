@@ -3,7 +3,7 @@ const app = express();
 const path = require('path')
 
 // MongoDB Atlas es una base de datos de alta disponibilidad
-const { mongoose } = require('./back-alcance/database')
+const { mongoose } = require('./back-alcance/configDB')
 
 //Cors es un middleware que permite que una aplicación pueda comunicarse con otra a través de una API
 const cors = require('cors')
@@ -26,20 +26,15 @@ require('dotenv').config()
 app.use(cors())
 app.use(express.json())
 
-// //Connect to mongodb
-// const { MONGO_URI } = process.env
-// mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-
-
 //Routes
 const usersRoutes = require('./back-alcance/routes/usersRoutes')
 const tasksRoutes = require('./back-alcance/routes/tasksRoutes')
 const projectsRoutes = require('./back-alcance/routes/projectsRoutes')
 
 //Use routes
-app.use('/api/v1/users', usersRoutes)
-app.use('/api/v1/tasks', tasksRoutes)
-app.use('/api/v1/projects', projectsRoutes)
+app.use('/api/v1/users', usersRoutes);
+app.use('/api/v1/tasks', tasksRoutes);
+app.use('/api/v1/projects', projectsRoutes);
 
 //Start server
 const PORT = process.env.PORT || 3000

@@ -16,14 +16,20 @@ const projectSchema = new Schema({
     required: true,
     default: []
   },
-  calendars: {
-    type: Array,
-    required: true,
-    default: []
+  startTime: {
+    type: Date,
+    required: true
+  },
+  endTime: {
+    type: Date,
+    required: true
   },
   notes: {
     type: Array,
-    required: true,
+    default: []
+  },
+  kanban: {
+    type: Array,
     default: []
   }
 })

@@ -6,7 +6,8 @@ const projectsController = {
       name: req.body.name,
       uuidv4: '123456' + Math.random(),
       users: req.body.users,
-      calendars: req.body.calendars,
+      startTime: req.body.startTime,
+      endTime: req.body.endTime,
       notes: req.body.notes
     })
     try {
@@ -30,8 +31,8 @@ const projectsController = {
     res.json({status: project})
   },
   editProject : async (req, res) =>{
-    const { name, uuidv4, users, calendars, notes } = req.body;
-    const newProject = { name, uuidv4, users, calendars, notes }
+    const { name, uuidv4, users, startTime, endTime } = req.body;
+    const newProject = { name, uuidv4, users, startTime, endTime }
    
     await Project.findByIdAndUpdate(req.params.id, newProject)
     res.json({status : 'Project updated'}) 
