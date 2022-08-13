@@ -76,6 +76,7 @@ export const ChatInput = styled.div`
     }
     input {
         margin: 0;
+        margin-right: 0.5rem;
         padding: 0;
     }
 `
@@ -91,7 +92,32 @@ export const ChatCircle = styled.div`
     color: white;
     padding: 28px;
     cursor: pointer;
+    z-index: 2000;
     box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    .btn#my-btn {
+       background: white;
+      padding-top: 13px;
+      padding-bottom: 12px;
+      border-radius: 45px;
+      padding-right: 40px;
+      padding-left: 40px;
+      color: #5865C3;
+  }
+`
+export const ChatOverlay = styled.div`
+  background: rgba(255,255,255,0.1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: none;`
+
+export const ChatLogs = styled.div`
+  padding:15px; 
+  height:370px;
+  overflow-y:scroll;
 `
 
 const containerVariants = {

@@ -7,29 +7,84 @@ import './Chat.styles.css'
 export const Chat = () => {
   return (
     <>
-      <s.ChatCircle className="btn btn-raised">
-        <div id="chat-overlay"></div>
-        <i className="material-icons">speaker_phone</i>
+      <s.ChatCircle>
+        <s.ChatOverlay> Test </s.ChatOverlay>
+        .ico
       </s.ChatCircle>
       <s.ChatBox>
         <s.ChatBoxHeader>
-          Alcance Chat
-          <s.ChatBoxToggle>
-            X
-          </s.ChatBoxToggle>
+          Chat Grupal
+          <s.ChatBoxToggle>X</s.ChatBoxToggle>
         </s.ChatBoxHeader>
         <s.ChatBoxBody>
-          <div className="chat-box-overlay"></div>
-          <div className="chat-logs"></div>
+          <s.ChatOverlay>Proyecto X21JA-W32i-Alpha-Bravo</s.ChatOverlay>
+          <s.ChatLogs>
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+            HolaHola
+            <br />
+          </s.ChatLogs>
         </s.ChatBoxBody>
         <s.ChatInput>
           <form>
-            <input type="text"              
-              placeholder="Enviar al grupo..."
-            />
-            <button type="submit">
-              Enviar
-            </button>
+            <input type="text" placeholder="Mensaje..." />
+            <button type="submit">Enviar</button>
           </form>
         </s.ChatInput>
       </s.ChatBox>
