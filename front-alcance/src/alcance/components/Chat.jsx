@@ -1,93 +1,48 @@
+// react 
+import {useState} from 'react'
 // styles components
-import styled from 'styled-components'
 import * as s from './Chat.styles.js'
-// styles css
-import './Chat.styles.css'
+// components
+import ChatRelleno from './ChatRelleno.jsx'
 
 export const Chat = () => {
+
+  const [isExpanded, setIsExpanded] = useState(false)
+
+  const handleSubmit = (e) => {
+   e.preventDefault();
+  }
+
   return (
     <>
-      <s.ChatCircle>
+      {isExpanded === false &&
+      <s.ChatCircle onClick={ () => setIsExpanded(true)}>
         <s.ChatOverlay> Test </s.ChatOverlay>
-        .ico
+        Chat
       </s.ChatCircle>
+      }
+      {isExpanded && 
       <s.ChatBox>
         <s.ChatBoxHeader>
           Chat Grupal
-          <s.ChatBoxToggle>X</s.ChatBoxToggle>
+          <s.ChatBoxToggle  onClick={ () => setIsExpanded(false)}>
+            X
+          </s.ChatBoxToggle>
         </s.ChatBoxHeader>
         <s.ChatBoxBody>
           <s.ChatOverlay>Proyecto X21JA-W32i-Alpha-Bravo</s.ChatOverlay>
           <s.ChatLogs>
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
-            HolaHola
-            <br />
+            <ChatRelleno />
           </s.ChatLogs>
         </s.ChatBoxBody>
-        <s.ChatInput>
-          <form>
-            <input type="text" placeholder="Mensaje..." />
+        <s.ChatFormContainer>
+          <form onSubmit={handleSubmit}>
+            <input type="text" placeholder=" Mensaje..." />
             <button type="submit">Enviar</button>
           </form>
-        </s.ChatInput>
+        </s.ChatFormContainer>
       </s.ChatBox>
+      }
     </>
   )
 }

@@ -16,13 +16,13 @@ export const ChatBox = styled.div`
 `
 export const ChatBoxHeader = styled.div`
   background: #5a5eb9;
-  height: 70px;
+  height: 2.5rem;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   color: white;
   text-align: center;
-  font-size: 20px;
-  padding-top: 17px;
+  font-size: 1rem;  
+  padding-top: 0.5rem;
 `
 export const ChatBoxBody = styled.div`
   position: relative;
@@ -49,15 +49,11 @@ export const ChatBoxToggle = styled.div`
   margin-right: 15px;
   cursor: pointer;
 `
-export const ChatInput = styled.div`
+export const ChatFormContainer = styled.div`
   background: #f4f7f9;
   width: 100%;
-  position: relative;
-  height: 47px;
-  padding-top: 10px;
-  padding-right: 50px;
-  padding-bottom: 10px;
-  padding-left: 15px;
+  position: relative;  
+  padding: 0.5rem;
   border: none;
   resize: none;
   outline: none;
@@ -73,24 +69,32 @@ export const ChatInput = styled.div`
     }
     form {
         margin-bottom: 0;
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;  
     }
     input {
         margin: 0;
         margin-right: 0.5rem;
-        padding: 0;
+        padding: 0;        
+        width: 80%;
+    }
+    button {
+      width: 20%;
     }
 `
 
 export const ChatCircle = styled.div`
     position: fixed;
-    bottom: 50px;
-    right: 50px;
+    bottom: 2rem;
+    right: 2rem;
     background: #5A5EB9;
-    width: 80px;
-    height: 80px;  
+    width: 4rem;
+    height: 4rem;  
     border-radius: 50%;
     color: white;
-    padding: 28px;
+    padding-left: 0.8rem;
+    padding-top: 1.2rem;
     cursor: pointer;
     z-index: 2000;
     box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
