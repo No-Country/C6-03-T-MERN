@@ -2,8 +2,6 @@
 
 export const CalendarEventBox = ({event}) => {
 
-  console.log(event)
-
   const { title, user, start } = event
 
   return (
