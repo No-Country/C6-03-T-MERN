@@ -1,5 +1,5 @@
-import { Navbar } from "../"
-import { CalendarComponent } from "../components/CalendarComponent"
+import { Navbar, Chat  } from "../"
+import { CalendarComponent} from "../components/CalendarComponent"
 
 
 export const AlcancePage = () => {
@@ -7,6 +7,7 @@ export const AlcancePage = () => {
     <>
       <Navbar />
       <CalendarComponent />
+      <Chat />
     </>
   )
 }
