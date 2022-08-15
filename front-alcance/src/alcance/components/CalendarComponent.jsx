@@ -3,29 +3,19 @@ import { useState } from "react";
 import { Calendar } from "react-big-calendar";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
-import { addHours } from "date-fns";
 
 import { localizer, getMessagesES } from "../../helpers";
 import { CalendarEventBox, CalendarModal } from "../";
-import { useUiStore } from "../../hooks";
+import { useUiStore, useCalendarStore } from "../../hooks";
 
 
 
-const events = [{
-  title: 'Meet with TL',
-  notes: 'Crear ToDo',
-  start: new Date(),
-  end: addHours( new Date(), 24 ),
-  bgColor: '#000',
-  user: {
-    _id: '123',
-    name: 'Enuel'
-  }
-}]
 
 export const CalendarComponent = () => {
 
   const { openDateModal } = useUiStore();
+  const { events, setActiveEvent } = useCalendarStore();
+
   const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'week' );
 
   const eventStyleGetter = ( event, start, end, isSelected ) => {
@@ -48,7 +38,7 @@ export const CalendarComponent = () => {
   }
 
   const onSelect = ( event ) => {
-    console.log({ click: event });
+    setActiveEvent( event );
   }
 
   const onViewChanged = ( event ) => {
