@@ -6,7 +6,7 @@ import { MainPageAuth } from "../auth";
 export const AppRouter = () => {
 
   // Temporal ToDo: Token
-  const authStatus = 'authenticated'; //'authenticated'
+  const authStatus = 'not-authenticated'; //'authenticated'
 
   return (
     <Routes>
