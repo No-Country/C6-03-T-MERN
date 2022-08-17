@@ -14,6 +14,10 @@ const kanbanSchema = new Schema({
   tasks: {
     type: Array,
     default: []
+  },
+  projectId: {
+  type: String,
+  required: true
   }
 })
 

@@ -14,10 +14,15 @@ const usersController = {
     })
     try {
       await user.save()
-      res.json({
-        user: user,
-        msg: 'User created'
-      })
+      const response = {
+        meta: {
+          status: 200,
+          url:'/api/v1/users/register',
+          total: user.length,           
+        },
+        data: user              
+      }
+      res.json(response)
     } catch (error) {
       res.send(error)
     }
@@ -29,10 +34,16 @@ const usersController = {
       } else {
         if (user) {
           if (bcrypt.compareSync(req.body.password, user.password)) {
-            res.json({
-              user: user,
-              msg: 'Login success'
-            })
+            const response = {
+              meta: {
+                status: 200,
+                url:'/api/v1/users/',
+                total: user.length,           
+                msg: 'Login success'
+              },
+              data: user              
+            }
+            res.json(response)
           } else {
             res.json({
               msg: 'Password incorrecto'
@@ -49,20 +60,43 @@ const usersController = {
       if (error) {
         res.json(error)
       } else {
-        res.json(users)
+        const response = {
+          meta: {
+            status: 200,
+            url:'/api/v1/users/list',
+            total: users.length,           
+          },
+          data: users              
+        }
+        res.json(response)
       }
     }).sort({ _id: -1 })
   },
   findOneUser: async (req, res) => {
     const user = await User.findById(req.params.id)
-    res.json({
-      user: user
-    })
+    const response = {
+      meta: {
+        status: 200,
+        url:'/api/v1/users/:id/detail',
+        total: user.length,           
+      },
+      data: user              
+    }
+    res.json(response)
   },
   userEdit: async (req, res) => {
-    const { username, password, role, email, country } = req.body;
-    const editUser = { username, password, role, email, country }
+    const { username, password, role, email, country, projectId } = req.body;
+    
+    let userProjects
+    let userEdit = await User.findById(req.params.id)
+    if(projectId == null){
+      userProjects = userEdit.projectId
+    } else {
+        userProjects = userEdit.projectId;
+        userProjects.push(projectId);
+    }
 
+    const editUser = { username:username, password:password, role:role, email:email, country:country, projectId:userProjects }
     await User.findByIdAndUpdate(req.params.id, editUser)
     res.json({ status: 'User updated' })
   },

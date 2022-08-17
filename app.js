@@ -27,14 +27,16 @@ app.use(cors())
 app.use(express.json())
 
 //Routes
-const usersRoutes = require('./back-alcance/routes/usersRoutes')
-const tasksRoutes = require('./back-alcance/routes/tasksRoutes')
-const projectsRoutes = require('./back-alcance/routes/projectsRoutes')
+const usersRoutes = require('./back-alcance/apisRoutes/usersRoutes')
+const tasksRoutes = require('./back-alcance/apisRoutes/tasksRoutes')
+const projectsRoutes = require('./back-alcance/apisRoutes/projectsRoutes')
+const kanbanRoutes = require('./back-alcance/apisRoutes/kanbanRoutes')
 
-//Use routes
+//Use ApisRoutes
 app.use('/api/v1/users', usersRoutes);
 app.use('/api/v1/tasks', tasksRoutes);
 app.use('/api/v1/projects', projectsRoutes);
+app.use('/api/v1/kanban', kanbanRoutes);
 
 //Start server
 const PORT = process.env.PORT || 3000
