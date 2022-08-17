@@ -12,10 +12,10 @@ export const FormContainer = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
-  box-shadow: 0px 0px 2.5px rgba(15, 15, 15, 0.19);
 `;
 
 export const MutedLink = styled.div`
+  text-align: center;
   font-size: 11px;
   color: rgba(200, 200, 200, 0.8);
   font-weight: 500;
@@ -43,6 +43,7 @@ export const Input = styled.input`
   border-bottom: 1.4px solid transparent;
   transition: all 200ms ease-in-out;
   font-size: 12px;
+  box-shadow: 0px 0px 2.5px rgba(15, 15, 15, 0.19);
   &::placeholder {
     color: rgba(200, 200, 200, 1);
   }
