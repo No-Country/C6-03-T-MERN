@@ -33,7 +33,7 @@ Modal.setAppElement('#root');
 export const CalendarModal = () => {
 
   const { isDateModalOpen, closeDateModal } = useUiStore();
-  const { activeEvent } = useCalendarStore();
+  const { activeEvent, startSavingEvent } = useCalendarStore();
 
   const [formSubmitted, setFormSubmitted] = useState(false)
 
@@ -41,7 +41,7 @@ export const CalendarModal = () => {
     title: '',
     notes: '',
     start: new Date(),
-    end: addHours( new Date(), 24),
+    end: addHours( new Date(), 2),
   });
 
   const titleClass = useMemo(() => {
@@ -79,11 +79,11 @@ export const CalendarModal = () => {
     closeDateModal();
   }
 
-  const onSubmit = ( event ) => {
+  const onSubmit = async( event ) => {
     event.preventDefault();
-    setFormSubmitted(true);
+    setFormSubmitted( true );
 
-    const difference = differenceInSeconds( formValues.start, formValues.end );
+    const difference = differenceInSeconds( formValues.end, formValues.start );
 
     if ( isNaN( difference ) || difference <= 0 ) {
       Swal.fire('Fechas incorrectas', 'Revisar las fechas ingresadas', 'error');
@@ -93,8 +93,9 @@ export const CalendarModal = () => {
     if ( formValues.title.length <= 0 ) return;
 
     // ToDo:
-    //! Remover errores en pantallas
-    //! Cerrar modal
+    await startSavingEvent( formValues );
+    closeDateModal();
+    setFormSubmitted(false);
   }
 
   return (
