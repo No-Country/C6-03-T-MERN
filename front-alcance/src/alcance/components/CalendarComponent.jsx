@@ -5,7 +5,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 
 import { localizer, getMessagesES } from "../../helpers";
-import { CalendarEventBox, CalendarModal, FabAddNew } from "../";
+import { CalendarEventBox, CalendarModal, FabAddNew, FabDelete } from "../";
 import { useUiStore, useCalendarStore } from "../../hooks";
 
 
@@ -16,7 +16,7 @@ export const CalendarComponent = () => {
   const { openDateModal } = useUiStore();
   const { events, setActiveEvent } = useCalendarStore();
 
-  const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'week' );
+  const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'month' );
 
   const eventStyleGetter = ( event, start, end, isSelected ) => {
 
@@ -68,6 +68,7 @@ export const CalendarComponent = () => {
 
       <CalendarModal />
       <FabAddNew />
+      <FabDelete />
 
     </>
   )
