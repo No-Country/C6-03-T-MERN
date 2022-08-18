@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const Project = require('../models/Project')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -96,13 +97,38 @@ const usersController = {
         userProjects.push(projectId);
     }
 
-    const editUser = { username:username, password:password, role:role, email:email, country:country, projectId:userProjects }
+    const editUser = { username, password, role, email, country, projectId:userProjects }
     await User.findByIdAndUpdate(req.params.id, editUser)
     res.json({ status: 'User updated' })
   },
   userDelete: async (req, res) => {
+    const user = await User.findById(req.params.id)
+    projectsOfUser = []
+    user.projectId.forEach(project => {
+      projectsOfUser.push(project)
+    })
+    
+    async function deletedUserForProjects(){
+      projectsOfUser.forEach(project =>{
+        Project.findById(project)
+        .then(function(result){
+          let projectFind = result
+          let userIndex = projectFind.users.indexOf(req.params.id)
+          projectFind.users.splice(userIndex, 1)
+          let userProjectUpdated = { users : projectFind.users }
+          
+          Project.findByIdAndUpdate(project, userProjectUpdated)
+          .then(function(){
+          })
+        })
+      })
+    }
+    deletedUserForProjects()
+
     await User.findByIdAndDelete(req.params.id);
-    res.json({ status: 'User deleted' })
+    res.json({ 
+      status: 'User deleted',
+      msg: 'User deleted in this projects' + projectsOfUser})
   }
 }
 

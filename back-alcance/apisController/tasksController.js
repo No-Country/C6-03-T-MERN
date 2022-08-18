@@ -64,13 +64,14 @@ const tasksController = {
     deleteTask : async (req, res)=>{
       const task = await Task.findById(req.params.id)
       const kanban = await Kanban.findById(task.kanbanId)
-      let taskIndex = kanban.tasks.indexOf(req.params.id)
       
+      let taskIndex = kanban.tasks.indexOf(req.params.id)
       kanban.tasks.splice(taskIndex, 1)
       const taskKanbanUpdated = { tasks : kanban.tasks }
+
       await Kanban.findByIdAndUpdate(task.kanbanId, taskKanbanUpdated)
       await Task.findByIdAndDelete(req.params.id);
-      res.json({status : 'Task deleted'})
+      res.json({status : 'Task deleted and Kanban updated'})
     },
     findOneTask : async(req, res) =>{
         const task = await Task.findById(req.params.id)
