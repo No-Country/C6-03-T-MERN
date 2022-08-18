@@ -1,4 +1,5 @@
 const Kanban = require('../models/Kanban')
+const Project = require('../models/Project')
 
 const kanbanController = {
     createKanban: async (req, res) => {
@@ -8,6 +9,19 @@ const kanbanController = {
       tasks: req.body.tasks,
       projectId: req.body.projectId
     })
+
+    let idKanbanProject
+    let project = await Project.findById(req.body.projectId)
+    if(project.kanban.length){
+      idKanbanProject = project.kanban
+      idKanbanProject.push(kanban.id)
+    } else {
+      idKanbanProject = kanban.id
+    }
+    console.log(idKanbanProject)
+    const kanbanId = { kanban : idKanbanProject }
+    await Project.findByIdAndUpdate(req.body.projectId, kanbanId)
+    
     try {
       await kanban.save()
       const response = {
@@ -53,19 +67,11 @@ const kanbanController = {
     res.json(response)
     },
     editKanban : async (req, res) =>{
-      const { title, category, tasks } = req.body;
+      const { title, category} = req.body;
       let kanbanEdit = await Kanban.findById(req.params.id)
-
-      let kanbanTasks
-      if(req.body.tasks == null){
-        kanbanTasks = kanbanEdit.tasks
-      } else {
-        kanbanTasks = kanbanEdit.tasks;
-        kanbanTasks.push(tasks);
-      }
       
-      const newKanban = { title, category, tasks:kanbanTasks }
-      await Kanban.findByIdAndUpdate(req.params.id, newKanban)
+      const kanbanEdited = { title, category }
+      await Kanban.findByIdAndUpdate(req.params.id, kanbanEdited)
       res.json({status : 'Kanban updated'}) 
     },
     deleteKanban : async (req, res)=>{
