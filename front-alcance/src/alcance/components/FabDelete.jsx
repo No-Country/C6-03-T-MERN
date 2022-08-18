@@ -13,10 +13,10 @@ const FabDeleteStyle = styled.button`
 
 export const FabDelete = () => {
 
-  const { deleteEvent, hasEventSelected } = useCalendarStore();
+  const { startDeletingEvent, hasEventSelected } = useCalendarStore();
 
   const handleDelete = () => {
-    deleteEvent();
+    startDeletingEvent();
   }
 
   return (
