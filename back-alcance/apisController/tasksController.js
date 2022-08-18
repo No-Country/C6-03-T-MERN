@@ -48,7 +48,6 @@ const tasksController = {
     editTask : async (req, res) =>{
         const { title, description, endTime, userId, difficulty, taskState } = req.body;
         
-        console.log(req.body.userId)
         let userTasks
         const taskEdit = await Task.findById(req.params.id)
         if(taskEdit.userId != null){
@@ -63,8 +62,15 @@ const tasksController = {
         res.json({status : 'Task updated'}) 
     },
     deleteTask : async (req, res)=>{
-        await Task.findByIdAndDelete(req.params.id);
-        res.json({status : 'Task deleted'})
+      const task = await Task.findById(req.params.id)
+      const kanban = await Kanban.findById(task.kanbanId)
+      let taskIndex = kanban.tasks.indexOf(req.params.id)
+      
+      kanban.tasks.splice(taskIndex, 1)
+      const taskKanbanUpdated = { tasks : kanban.tasks }
+      await Kanban.findByIdAndUpdate(task.kanbanId, taskKanbanUpdated)
+      await Task.findByIdAndDelete(req.params.id);
+      res.json({status : 'Task deleted'})
     },
     findOneTask : async(req, res) =>{
         const task = await Task.findById(req.params.id)
