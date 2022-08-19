@@ -3,7 +3,8 @@ import * as s from './Chat.styles.js'
 import io from 'socket.io-client'
 import { joinRoom, leftRoom, sendNewMessage } from './conexion.js'
 
-const endPoint = 'http://localhost:3000'
+const endPoint = import.meta.env.VITE_URI_CHAT_SERVER
+console.log(endPoint);
 var socket = io(endPoint)
 
 export const Chat = () => {

@@ -1,5 +1,3 @@
-import io from 'socket.io-client'
-const endPoint = 'http://localhost:3000'
 const ROOM = 100;
 
 export const joinRoom = (socket, user) => {    
