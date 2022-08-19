@@ -102,38 +102,22 @@ export const ChatFormContainer = styled.div`
 
 export const ChatCircle = styled.div`
   position: fixed;
-  bottom: 1rem;
-  right: 5rem;
-  background: #5a5eb9;
-  width: 4rem;
-  height: 4rem;
+  bottom: 4.1rem;
+  right: 6rem;
+  background: #0d6efd;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   color: white;
-  padding-left: 0.8rem;
-  padding-top: 1.2rem;
+  padding-left: .9rem;
+  padding-top: 1.4rem;
   cursor: pointer;
   z-index: 2000;
-  box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6),
-    0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  .btn#my-btn {
-    background: white;
-    padding-top: 13px;
-    padding-bottom: 12px;
-    border-radius: 45px;
-    padding-right: 40px;
-    padding-left: 40px;
-    color: #5865c3;
+  &:hover {
+    background: #004efd;
   }
-`
-export const ChatOverlay = styled.div`
-  background: rgba(255, 255, 255, 0.1);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  display: none;
+  /* box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6),
+    0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); */ 
 `
 
 export const ChatLogs = styled.div`

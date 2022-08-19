@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import * as s from './Chat.styles.js'
 import io from 'socket.io-client'
 import { joinRoom, leftRoom, sendNewMessage } from './conexion.js'
@@ -8,15 +8,19 @@ console.log(endPoint);
 var socket = io(endPoint)
 
 export const Chat = () => {
+
+  console.log("Render Chat Component");
+  
   const [isExpanded, setIsExpanded] = useState(false)
-  const [user, setUser] = useState('Pepe' + Math.floor(Math.random() * 100))
+  const [user, setUser] = useState('Pepe' + Math.floor(Math.random() * 1000))
   const [usersList, setUsersList] = useState([])
   const [isJoined, setIsJoined] = useState(false)
   const [newMessage, setNewMessage] = useState('')
   const [chatMessages, setChatMessages] = useState([])
+  
+  const bottomRef = useRef(null);
 
-  useEffect(() => {
-    console.log('useEffect')
+  useEffect(() => {    
     socket.on('receive_message', (data) => {
       setChatMessages((oldChatMessages) => [
         ...oldChatMessages,
@@ -49,6 +53,10 @@ export const Chat = () => {
     })
   }, [socket])
 
+  useEffect(() => { 
+    bottomRef.current?.scrollIntoView({behavior: 'smooth'});
+  }, [chatMessages])
+
   const handleChange = (e) => {
     setNewMessage(e.target.value)
   }
@@ -78,14 +86,13 @@ export const Chat = () => {
   return (
     <>
       {isExpanded === false && (
-        <s.ChatCircle onClick={() => setIsExpanded(true)}>
-          <s.ChatOverlay> Test </s.ChatOverlay>
+        <s.ChatCircle onClick={() => setIsExpanded(true)}>          
           Chat
         </s.ChatCircle>
       )}
       {isExpanded && (
         <>
-          <s.ChatBox right="25px" bottom="70px" width="350px" shadow="true">
+          <s.ChatBox right="25px" bottom="30px" width="350px" shadow="true">
             <s.ChatBoxHeader>
               Chat Grupal
               <input
@@ -93,6 +100,7 @@ export const Chat = () => {
                 type="text"
                 value={user}
                 onChange={(e) => setUser(e.target.value)}
+                readonly="true"
               />
               <s.ChatBoxToggle onClick={() => setIsExpanded(false)}>
                 X
@@ -111,6 +119,7 @@ export const Chat = () => {
                     </s.ChatLog>
                   )
                 })}
+                <div ref={bottomRef} />
               </s.ChatLogs>
             </s.ChatBoxBody>
             <s.ChatFormContainer>
