@@ -1,5 +1,7 @@
+const { findByIdAndDelete } = require('../models/Kanban')
 const Kanban = require('../models/Kanban')
 const Project = require('../models/Project')
+const Task = require('../Models/Task')
 
 const kanbanController = {
     createKanban: async (req, res) => {
@@ -18,7 +20,7 @@ const kanbanController = {
     } else {
       idKanbanProject = kanban.id
     }
-    console.log(idKanbanProject)
+    
     const kanbanId = { kanban : idKanbanProject }
     await Project.findByIdAndUpdate(req.body.projectId, kanbanId)
     
@@ -59,7 +61,7 @@ const kanbanController = {
     const response = {
       meta: {
         status: 200,
-        url:'/api/v1/kanban/:id/detail',
+        url:'/api/v1/kanban/:id',
         total: kanban.length,           
       },
       data: kanban              
@@ -68,15 +70,32 @@ const kanbanController = {
     },
     editKanban : async (req, res) =>{
       const { title, category} = req.body;
-      let kanbanEdit = await Kanban.findById(req.params.id)
       
       const kanbanEdited = { title, category }
       await Kanban.findByIdAndUpdate(req.params.id, kanbanEdited)
       res.json({status : 'Kanban updated'}) 
     },
     deleteKanban : async (req, res)=>{
+      const kanban = await Kanban.findById(req.params.id)
+      const project = await Project.findById(kanban.projectId)
+      
+      let kanbanIndex = project.kanban.indexOf(req.params.id)
+      project.kanban.splice(kanbanIndex, 1)
+      const kanbanProjectUpdated = { kanban : project.kanban }
+
+      let taskForKanban = kanban.tasks
+      async function deletedTask(){
+        taskForKanban.forEach(task =>{
+            Task.findByIdAndDelete(task)
+            .then(function(){
+            })
+        })
+      }
+      deletedTask();
+
+      await Project.findByIdAndUpdate(kanban.projectId, kanbanProjectUpdated)
       await Kanban.findByIdAndDelete(req.params.id);
-      res.json({status : 'Kanban deleted'})
+      res.json({status : 'Kanban deleted and Project updated'})
     }
 }
 

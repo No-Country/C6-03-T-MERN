@@ -1,4 +1,7 @@
 const Project = require('../models/Project')
+const Kanban = require('../models/Kanban')
+const Notes = require('../models/Note')
+const Task = require('../Models/Task')
 
 const projectsController = {
   createProject: async (req, res) => {
@@ -88,6 +91,49 @@ const projectsController = {
     res.json({status : 'Project updated'}) 
   },
   deleteProject : async (req, res)=>{
+    const project = await Project.findById(req.params.id)
+    kanbanOfProject = []
+    project.kanban.forEach(kanban => {
+      kanbanOfProject.push(kanban)
+    })
+    console.log('////Estos son los kanbanId del proyecto: ' + kanbanOfProject)
+    async function findTaskForKanban(){
+      kanbanOfProject.forEach(kanban =>{
+          let kanbanFind = Kanban.findById(kanban)
+          .then(function(result){
+            let tasksForKanban = result.tasks
+            console.log('////Estos son los id de las tasks encontradas: ' + tasksForKanban)
+            tasksForKanban.forEach(taskForDelete =>{
+              console.log('Esta es la tarea a eliminar ' + taskForDelete)
+              Task.findByIdAndDelete(taskForDelete)
+              .then(function(){
+              })
+            })
+          })
+      })
+    }
+    findTaskForKanban();
+    
+    let kanbanForProject = project.kanban
+    async function deletedKanban(){
+      kanbanForProject.forEach(kanban =>{
+          Kanban.findByIdAndDelete(kanban)
+          .then(function(){
+          })
+      })
+    }
+    deletedKanban();
+
+    let notesForProject = project.notes
+    async function deletedNotes(){
+      notesForProject.forEach(notes =>{
+          Notes.findByIdAndDelete(notes)
+          .then(function(){
+          })
+      })
+    }
+    deletedNotes();
+
     await Project.findByIdAndDelete(req.params.id);
     res.json({status : 'Project deleted'})
 }

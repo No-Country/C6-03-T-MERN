@@ -35,8 +35,9 @@ const tasksController = {
         }
         
         const kanban = await Kanban.findById(req.body.kanbanId)
+        console.log(kanban)
         let kanbanTasksId
-        if(kanban.tasks != undefined){
+        if(kanban.tasks.length){
           kanbanTasksId = kanban.tasks;
         }
         kanbanTasksId.push(task.id);
