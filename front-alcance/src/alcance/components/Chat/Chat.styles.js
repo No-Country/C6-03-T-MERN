@@ -101,9 +101,8 @@ export const ChatFormContainer = styled.div`
 `
 
 export const ChatCircle = styled.div`
-  position: fixed;
-  bottom: 4.1rem;
-  right: 6rem;
+  position: fixed;  
+  right: 100px;
   background: #0d6efd;
   width: 70px;
   height: 70px;

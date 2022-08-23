@@ -61,13 +61,17 @@ export const Chat = () => {
     setNewMessage(e.target.value)
   }
   const handleSubmit = (e) => {
+    
     e.preventDefault()
+    if (newMessage.trim() !== "")
+    {
     sendNewMessage(socket, user, newMessage)
     setChatMessages((oldChatMessages) => [
       ...oldChatMessages,
-      { author: user, message: newMessage }
+      { author: user, message: newMessage.trim() }
     ])
     setNewMessage('')
+    }
   }
 
   const handleJoinRoom = async () => {
@@ -147,7 +151,7 @@ export const Chat = () => {
             </s.ChatFormContainer>
           </s.ChatBox>
           {isJoined && (
-            <s.ChatBox right="380px" bottom="70px" width="140px" shadow="yes">
+            <s.ChatBox right="380px" bottom="30px" width="140px" shadow="yes">
               <s.ChatBoxHeader>Usuarios</s.ChatBoxHeader>
               <s.ChatBoxBody heigth="400">
                 <s.UserListContainer>
