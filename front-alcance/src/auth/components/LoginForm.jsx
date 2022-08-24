@@ -1,22 +1,51 @@
-import { useContext } from "react";
-import styled from "styled-components";
+import { useContext, useEffect } from "react";
+import Swal from "sweetalert2";
 import { BoxContainer, Input, MutedLink, FormContainer, SubmitButton, Marginer, BoldLink, AccountContext } from "../"
+import { useAuthStore, useForm } from "../../hooks";
 
+const loginFormFields = {
+  loginEmail:    '',
+  loginPassword: '',
+}
 
 export const LoginForm = () => {
 
-const { switchToSignup } = useContext(AccountContext);
+  const { startLogin, errorMessage } = useAuthStore();
 
-const handleClick = ( event ) => {
-  event.preventDefault();
-  console.log('handle clic');
-}
+  const { loginEmail, loginPassword, onInputChange:onLoginChange } = useForm( loginFormFields );
+
+  const { switchToSignup } = useContext(AccountContext);
+
+  const handleClick = async( event ) => {
+    event.preventDefault();
+    startLogin({ email: loginEmail, password: loginPassword });
+
+  }
+
+  useEffect(() => {
+    if( errorMessage !== undefined ) {
+      Swal.fire('Error en la auntenticación', errorMessage, 'error' );
+    }
+  }, [errorMessage])
+
 
   return (
     <BoxContainer>
       <FormContainer onSubmit={ handleClick }>
-        <Input type="email" placeholder="Correo electrónico" />
-        <Input type="password" placeholder="Contraseña" />
+        <Input
+          type="email"
+          placeholder="Correo electrónico"
+          name="loginEmail"
+          value={ loginEmail }
+          onChange={ onLoginChange }
+        />
+        <Input
+          type="password"
+          placeholder="Contraseña"
+          name="loginPassword"
+          value={ loginPassword }
+          onChange={ onLoginChange }
+        />
         <Marginer direction="vertical" margin={10} />
         <MutedLink href="#">¿Olvidó su contraseña?</MutedLink>
         <Marginer direction="vertical" margin="1.6em" />
