@@ -1,7 +1,7 @@
 const Project = require('../models/Project')
 const Kanban = require('../models/Kanban')
 const Notes = require('../models/Note')
-const Task = require('../Models/Task')
+const Task = require('../models/Task')
 
 const projectsController = {
   createProject: async (req, res) => {
