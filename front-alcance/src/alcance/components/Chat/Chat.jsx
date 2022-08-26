@@ -3,24 +3,27 @@ import * as s from './Chat.styles.js'
 import io from 'socket.io-client'
 import { joinRoom, leftRoom, sendNewMessage } from './conexion.js'
 
-const endPoint = import.meta.env.VITE_URI_CHAT_SERVER
-console.log(endPoint);
-var socket = io(endPoint)
+  const endPoint = import.meta.env.VITE_URI_CHAT_SERVER
+  console.log(endPoint)
+  var socket = io(endPoint, {reconnection: false})  
 
-export const Chat = () => {
+export const Chat = () => {  
 
-  console.log("Render Chat Component");
-  
+  console.log('Render Chat Component')
+
   const [isExpanded, setIsExpanded] = useState(false)
   const [user, setUser] = useState('Pepe' + Math.floor(Math.random() * 1000))
   const [usersList, setUsersList] = useState([])
   const [isJoined, setIsJoined] = useState(false)
   const [newMessage, setNewMessage] = useState('')
   const [chatMessages, setChatMessages] = useState([])
-  
-  const bottomRef = useRef(null);
+  const [errorsCounter, setErrorsCounter] = useState(0);
 
-  useEffect(() => {    
+  const bottomRef = useRef(null)
+
+  console.log(errorsCounter);
+
+  useEffect(() => {
     socket.on('receive_message', (data) => {
       setChatMessages((oldChatMessages) => [
         ...oldChatMessages,
@@ -29,6 +32,7 @@ export const Chat = () => {
     })
 
     socket.on('have_joined_room', (data) => {
+      console.log("User se unio al chat")
       setChatMessages((oldChatMessages) => [
         ...oldChatMessages,
         { author: data.author, message: data.message }
@@ -44,6 +48,7 @@ export const Chat = () => {
 
     socket.io.on('error', (error) => {
       console.log('error: ' + error)
+      setErrorsCounter ( (oldValue) => oldValue + 1);
       setIsJoined(false)
     })
 
@@ -53,29 +58,28 @@ export const Chat = () => {
     })
   }, [socket])
 
-  useEffect(() => { 
-    bottomRef.current?.scrollIntoView({behavior: 'smooth'});
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [chatMessages])
 
   const handleChange = (e) => {
     setNewMessage(e.target.value)
   }
+
   const handleSubmit = (e) => {
-    
     e.preventDefault()
-    if (newMessage.trim() !== "")
-    {
-    sendNewMessage(socket, user, newMessage)
-    setChatMessages((oldChatMessages) => [
-      ...oldChatMessages,
-      { author: user, message: newMessage.trim() }
-    ])
-    setNewMessage('')
+    if (newMessage.trim() !== '') {
+      sendNewMessage(socket, user, newMessage)
+      setChatMessages((oldChatMessages) => [
+        ...oldChatMessages,
+        { author: user, message: newMessage.trim() }
+      ])
+      setNewMessage('')
     }
   }
 
   const handleJoinRoom = async () => {
-    if (socket.connected == false) socket = io(endPoint)
+    if (socket.connected == false) socket = io(endPoint, {reconnection: false})
     joinRoom(socket, user)
     setIsJoined(true)
   }
