@@ -1,103 +1,162 @@
-body{
-    background: linear-gradient(352deg, rgb(5 190 154), rgb(178 216 208));
-    height: 100vh;
+body {
+  background: rgb(255, 255, 255);
+  height: 100%;
 }
 
-.userCard{
-    background: rgb(33,37,41);
-    display: flex;
-    width: 20vw;
-    border-radius: 20px;
-    padding: 0 0.4em;
-    align-items: center;
-    margin: 0.2em 0 0.2em 0.2em;
-    justify-content: space-around;
-    color: #fff;
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  width: 450px;
+  margin: auto;
+  padding-top: 80px;
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
 }
 
-.userCard svg{
-    font-size: 2.5em;
+.userCard {
+  background: rgb(33, 37, 41);
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  width: 450px;
+  height: 100%;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: space-around;
+  color: rgb(255, 255, 255);
 }
 
-.userCard h5{
-    font-size: 0.9em;
-    font-weight: bold;
-    font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+.userCard svg {
+  font-size: 2.5em;
 }
 
-.container-modalTeam{
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-evenly;
-    box-shadow: 0px 0px 3px;
-    border-radius: 20px;
-    display: flex;
-    width: 75vw;
-    margin: 3em auto;
-    padding: 1em;   
+.userCard h5 {
+  font-size: 18px;
+  font-weight: bold;
 }
 
-.container-modalTeam h5{
-    font-size: 1em;
-    margin-left: 1em;
+.container-modalTeam {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-bottom: solid 2px rgb(0, 0, 0, 0.537);
+  width: 100%;
+  padding: 5px 0 5px 0px;
+}
+.modal-team p {
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
 }
 
-.modal-team{
-    width: 45%;
-    align-items: center;
-    display: flex;
-    justify-content: center;
+.modal-team {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
-.modal-team p{
-    width: 50%;
-    text-align: center;
+.modal-team p {
+  width: 50%;
+  text-align: start;
 }
 
-.container-buttons{
-    width: 50%;
-    text-align: center;
-    display: flex;
-    justify-content: space-evenly;
-    
+.container-buttons {
+  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+}
+.container-buttons button {
+  margin: 5px;
+  width: 75px;
+  height: 30px;
+}
+.ingresar {
+  background-color: #fff;
+  border-radius: 5px;
+  border: solid 1.5px;
+  color: rgb(0, 123, 255);
+  bottom: none;
+  background-color: rgb(255, 255, 255);
+}
+.ingresar:hover {
+  background-color: rgb(0, 123, 255);
+  color: #fff;
 }
 
-.container-teams h5{
-    font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    color: rgb(33,37,41);
-    font-size: 1.5em;
-    padding-left: 1em;
-    font-weight: bolder;
+.ingresar p {
+  color: rgba(0, 123, 255, 0.763);
+  margin: 0;
+  text-align: center;
+  font-size: 15px;
+}
+.eliminar {
+  background-color: #fff;
+  border-radius: 5px;
+  border: solid 1.5px;
+  color: rgb(227, 23, 23);
+  bottom: none;
+  background-color: rgb(255, 255, 255);
+}
+.eliminar:hover {
+  background-color: rgb(227, 23, 23);
+}
+.eliminar p {
+  color: rgb(227, 23, 23, 0.763);
+  margin: 0;
+  text-align: center;
+  font-size: 15px;
+}
+.container-teams h5 {
+  color: rgb(33, 37, 41);
+  margin: auto;
+  text-align: center;
+  font-size: 25px;
+  font-weight: bolder;
 }
 
-.addTeam-modal{
-    display: flex;
-    flex-direction: row;
-    width: 40vw;
-    flex-wrap: wrap;
-    box-shadow: 0px 0px 3px;
-    padding: 0 0 0.8em;
+.addTeam-modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 15px;
+  gap: 15px;
 }
 
-.addTeam-modal h3{
-    text-align: center;
-    width: 100%;
+.addTeam-modal h3 {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 5px;
 }
 
-.addTeam-modal input{
-    width: 40%;
-    margin: auto;
-    margin-bottom: 0.5em;
+.addTeam-modal input {
+  width: 50%;
+  height: 25px;
+  color: gray;
+  font-size: 20px;
+  margin: auto;
 }
 
-.addTeam-modal button{
-    margin-top: -1px;
-    width: 30%;
-    margin: auto;
+.addTeam-modal button {
+  margin: auto;
+  height: 30px;
+  width: 51%;
+  background-color: rgba(0, 123, 255, 0.845);
+  border-radius: 5px;
+  border: solid 1.5px;
+  color: white;
+}
+.addTeam-modal button:hover {
+  background-color: rgb(0, 123, 255);
 }
 
-.container-newTeams{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+.container-newTeams {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
