@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-// import ReactDOM from "react-dom/client";
 import Users from "./components/Users";
-import Projects from "./components/Project"
+import ContainerTeams from "./components/ContainerTeams"
+import AddTeam from "./components/AddTeam";
+import CreateTeam from "./components/CreateTeam";
 
 export default function App() {
     
@@ -15,18 +16,19 @@ export default function App() {
 
   const [infoUser, setInfoUser] = useState([]);
   useEffect(() => {
-    setInfoUser({
-      name: "user1",
-      email: "user@gmail.com",
-      country: "Argentina",
-      projectsId: [1234, 12345, 123123],
-    });
-  }, []);
+    fetch("http://localhost:3000/api/v1/users/list")
+    .then((res) => res.json())
+    .then((data) => setInfoUser(data));
+}, []);
 
-  return (
+return (
     <>
       <Users infoUser={infoUser}/>
-      <Projects allProjects={projects}/>
+      <ContainerTeams infoUser={infoUser}/>
+      <div className="container-newTeams">
+        <AddTeam/>
+        <CreateTeam/>
+      </div>
     </>
   );
 }
