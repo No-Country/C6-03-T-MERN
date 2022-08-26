@@ -7,4 +7,5 @@ export * from './components/FabAddNew';
 export * from './components/FabDelete';
 export * from './components/Navbar';
 export * from './components/Chat/Chat';
+export * from './components/Kanban/Kanban';
 export * from './pages/AlcancePage';
