@@ -22,22 +22,13 @@ export const AppRouter = () => {
 
   return (
     <Routes>
-      {
-        ( status === "not-authenticated" )
-          ? (
-            <>
-              <Route path="/auth/*" element={<MainPageAuth />} />
-              <Route path="/*" element={<Navigate to="/auth/login" />} />
-            </>
-          )
-          : (
-            <>
+      
+       
               <Route path="/" element={<AlcancePage />} >
               </Route>
               <Route path="/*" element={<Navigate to="/" />} />
-            </>
-          )
-      }
+          
+      
     </Routes>
   )
 }

@@ -16,12 +16,9 @@ export const Chat = () => {
   const [usersList, setUsersList] = useState([])
   const [isJoined, setIsJoined] = useState(false)
   const [newMessage, setNewMessage] = useState('')
-  const [chatMessages, setChatMessages] = useState([])
-  const [errorsCounter, setErrorsCounter] = useState(0);
+  const [chatMessages, setChatMessages] = useState([])  
 
-  const bottomRef = useRef(null)
-
-  console.log(errorsCounter);
+  const bottomRef = useRef(null)  
 
   useEffect(() => {
     socket.on('receive_message', (data) => {
@@ -47,8 +44,7 @@ export const Chat = () => {
     })
 
     socket.io.on('error', (error) => {
-      console.log('error: ' + error)
-      setErrorsCounter ( (oldValue) => oldValue + 1);
+      console.log('error: ' + error)      
       setIsJoined(false)
     })
 
@@ -108,7 +104,7 @@ export const Chat = () => {
                 type="text"
                 value={user}
                 onChange={(e) => setUser(e.target.value)}
-                readonly="true"
+                readOnly={true}
               />
               <s.ChatBoxToggle onClick={() => setIsExpanded(false)}>
                 X
