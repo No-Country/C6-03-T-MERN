@@ -4,13 +4,12 @@ body {
 }
 
 .contenedor {
+    padding-top: 3em;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 10px;
-  width: 450px;
   margin: auto;
-  padding-top: 80px;
   font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
     "Helvetica Neue", sans-serif;
@@ -27,6 +26,11 @@ body {
   align-items: center;
   justify-content: space-around;
   color: rgb(255, 255, 255);
+}
+
+.container-teams{
+    width: 450px;
+    margin: auto;
 }
 
 .userCard svg {
@@ -123,7 +127,7 @@ body {
 .addTeam-modal {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 50%;
   padding-bottom: 15px;
   gap: 15px;
 }
@@ -159,4 +163,5 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  margin-top: 2em;
 }
