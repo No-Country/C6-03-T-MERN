@@ -2,26 +2,33 @@ const express = require("express");
 const app = express();
 const path = require("path");
 
-// MongoDB Atlas es una base de datos de alta disponibilidad
-const { mongoose } = require("./configDB");
-
-//Cors es un middleware que permite que una aplicación pueda comunicarse con otra a través de una API
-const cors = require("cors");
-
 //Dotenv es una librería que permite leer variables de entorno
-require("dotenv").config();
+require("dotenv").config({ path:'variables.env'});
 
-// main().catch(err => console.log(err));
-// async function main() {
-//   await mongoose.connect('mongodb://localhost:27017/test');
-// }
+//-- Config DB MONGO --//
+const mongoose = require("mongoose");
+// "mongodb+srv://german1:german@cluster0.7vpbe5a.mongodb.net/?retryWrites=true&w=majority";
+// const MONGOURI = "mongodb+srv://MERN_ALCANCE:alcance123@cluster0.fc2kmvg.mongodb.net"
+// mongoose.connect(MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
-//Static files
-// app.use(express.static())
-// console.log(path.join(__dirname/front-alcance/public))
+mongoose.connect(process.env.DB_URL)
+  .then((DB) => console.log("DB is connected"))
+  .catch((err) => console.error(err));
 
-//Middlewares
-app.use(cors());
+  
+  
+  
+  
+  
+  //Cors es un middleware que permite que una aplicación pueda comunicarse con otra a través de una API
+  const cors = require("cors");
+  
+  //Static files
+  // app.use(express.static())
+  // console.log(path.join(__dirname/front-alcance/public))
+  
+  //Middlewares
+  app.use(cors());
 app.use(express.json());
 
 //Routes
@@ -37,8 +44,9 @@ app.use("/api/v1/projects", projectsRoutes);
 app.use("/api/v1/kanban", kanbanRoutes);
 
 //Start server
+const host = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`server started on ${PORT}`));
+app.listen(PORT, host, () => console.log(`server started on ${PORT}`));
 
 /* ------------------------ app.js antes ------------------------------ */
 
