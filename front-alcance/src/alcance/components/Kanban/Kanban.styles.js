@@ -59,9 +59,7 @@ export const ChatBoxToggle = styled.div`
   margin-right: 15px;
   cursor: pointer;
 `
-export const ChatFormContainer = styled.div`
-  background: #f4f7f9;
-  width: 100%;
+export const ChatFormContainer = styled.div`  
   position: relative;
   padding: 0.5rem;
   border: none;
@@ -73,6 +71,7 @@ export const ChatFormContainer = styled.div`
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   overflow: hidden;
+  width: 100%;
 
   &::placeholder {
     color: #888;
@@ -80,17 +79,20 @@ export const ChatFormContainer = styled.div`
   form {
     margin-bottom: 0;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    justify-content: flex-start;    
     width: 100%;
+    height: 15rem;
   }
-  input {
+  input, select, div {    
     margin: 0;
     margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
     padding-left: 1rem;
-    width: 80%;
+    width: 100%;
     font-size: 0.9rem;
     border: 0;
-    border-radius: 10px;    
+    border-radius: 5px;    
   }
   button {
     width: 20%;
@@ -124,7 +126,7 @@ export const ChatLogs = styled.div`
   flex-direction: column;
   flex-wrap: nowrap;
   padding: 15px;
-  height: 370px;
+  height: 270px;
   overflow-y: scroll;
 `
 
