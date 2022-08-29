@@ -5,14 +5,14 @@ export const ChatBox = styled.div`
   display: block;
   background: #efefef;
   position: fixed;
-  right: ${(props) => props.right};
-  bottom: ${(props) => props.bottom};
+  left: ${(props) => props.right};
+  top: ${(props) => props.bottom};  
   width: ${(props) => props.width};  
   max-width: 85vw;
   max-height: 100vh;
   border-radius: 5px;
   box-shadow: ${(props) => (props.shadow ? '-1px -1px 5px 0px #ccc' : 'none')};
-  z-index: 1000;
+  z-index: 1000;  
 `
 export const ChatBoxHeader = styled.div`
   background: #5a5eb9;
@@ -23,23 +23,13 @@ export const ChatBoxHeader = styled.div`
   text-align: center;
   font-size: 1rem;
   padding-top: 0.5rem;
-  input {
-    border: 1px solid #ccc;
-    border-color: white;
-    border-radius: 10px;
-    padding-left: 0.7rem;
-    font-size: 0.9rem;
-    color: white;
-    background-color: #5a5eb9;
-  }
 `
 export const ChatBoxBody = styled.div`
   position: relative;
   height: 370px;
   height: auto;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  /* overflow: hidden; */
+  border-radius: 5px;  
 
   &:after {
     content: '';
@@ -83,8 +73,9 @@ export const ChatFormContainer = styled.div`
     justify-content: flex-start;    
     width: 100%;
     height: 15rem;
-  }
-  input, select, div {    
+  }  
+
+  input, select, div, textarea {    
     margin: 0;
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
@@ -92,7 +83,7 @@ export const ChatFormContainer = styled.div`
     width: 100%;
     font-size: 0.9rem;
     border: 0;
-    border-radius: 5px;    
+    border-radius: 5px;       
   }
   button {
     width: 20%;
@@ -110,10 +101,10 @@ export const ChatCircle = styled.div`
   height: 70px;
   border-radius: 50%;
   color: white;
-  padding-left: .9rem;
+  padding-left: .3rem;
   padding-top: 1.4rem;
   cursor: pointer;
-  z-index: 2000;
+  z-index: 1;
   &:hover {
     background: #004efd;
   }
@@ -126,57 +117,25 @@ export const ChatLogs = styled.div`
   flex-direction: column;
   flex-wrap: nowrap;
   padding: 15px;
-  height: 270px;
+  height: 60vh;
   overflow-y: scroll;
+  overflow-x: hidden;  
 `
 
 export const ChatLog = styled.div`
-  margin: 2px 10px;
+  margin: 5px 10px;
   padding: 10px;
   color: black;
   font-size: 0.8rem;  
   position: relative;
   border-radius: 5px;  
+  width: 95%;
   box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6);
-  background-color: ${(props) =>
-    props.author === 'You' ? 'white' : '#dcf8c6'};
-  align-self: ${(props) =>
-    props.author === 'You' ? 'self-start' : 'self-end'};
-
-    &:before {      
-    content: "e";   
-    display: ${(props) => (props.author === 'You' ? 'block' : 'none')};
-    position: absolute; 
-    top: 0px;
-    left: -11px;
-    width: 0px;
-    height: 0px;
-    z-index: 1;    
-    border-bottom: 15px solid transparent;  
-    border-top: 0px solid transparent; 
-    border-right: 15px solid #FFFFFF; 
-    font-size: 0px;
-    line-height:0px;
-    }
-
-    &:after {      
-    content: "e";   
-    display: ${(props) => (props.author !== 'You' ? 'block' : 'none')};
-    position: absolute; 
-    top: 0px;    
-    right: -11px;
-    width: 0px;
-    height: 0px;
-    z-index: 1;    
-    border-bottom: 15px solid transparent;  /* izquierda flecha */
-    border-top: 0px solid transparent; /* derecha flecha */
-    border-left: 15px solid #dcf8c6; /* base flecha y color*/
-    font-size: 0px;
-    line-height:0px;    
-    }
+  background-color: ${'#dcf8c6'};
+  align-self: "center";    
 `
 export const ChatMessageAuthor = styled.div`
-font-size: 0.7rem;
+font-size: 1rem;
 color: #5865c3;
 `
 export const ChatMessageText = styled.div`
