@@ -44,7 +44,7 @@
 
 #### put
 
-- para agregar un proyecto a un usuario
+- para editar un usuario
   - localhost:3000/api/v1/users/:id
 
 #### delete
@@ -68,7 +68,7 @@
 
 #### put
 
-- para agregar una tasks
+- para editar una tasks
   - localhost:3000/api/v1/tasks/:id
 
 #### delete
@@ -94,7 +94,7 @@
 
 #### put
 
-- para agregar usuarios al proyecto
+- para editar proyecto
   - localhost:3000/api/v1/projects/:id
 
 #### delete
@@ -118,7 +118,7 @@
 
 #### put
 
-- para agregar un titulo y categoria
+- para editar
   - localhost:3000/api/v1/kanban/:id
 
 #### delete

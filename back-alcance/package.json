@@ -19,9 +19,13 @@
   "homepage": "https://github.com/No-Country/C6-03-T-MERN#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "express-validator": "^6.14.2",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.4",
     "mongoose": "^6.5.1",
     "node-fetch": "^3.2.10"
   }

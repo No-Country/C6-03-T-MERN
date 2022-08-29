@@ -1,7 +1,7 @@
 const { findByIdAndDelete } = require('../models/Kanban')
 const Kanban = require('../models/Kanban')
 const Project = require('../models/Project')
-const Task = require('../Models/Task')
+const Task = require('../models/Task')
 
 const kanbanController = {
     createKanban: async (req, res) => {
