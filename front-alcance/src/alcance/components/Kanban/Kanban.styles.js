@@ -122,7 +122,7 @@ export const ChatLogs = styled.div`
   overflow-x: hidden;  
 `
 
-export const ChatLog = styled.div`
+export const Log = styled.div`
   margin: 5px 10px;
   padding: 10px;
   color: black;
@@ -134,11 +134,15 @@ export const ChatLog = styled.div`
   background-color: ${'#dcf8c6'};
   align-self: "center";    
 `
-export const ChatMessageAuthor = styled.div`
+export const Author = styled.div`
+font-size: 0.7rem;
+color: #5865c3;
+`
+export const Title = styled.div`
 font-size: 1rem;
 color: #5865c3;
 `
-export const ChatMessageText = styled.div`
+export const Text = styled.div`
 `
 
 export const UserListContainer = styled.div`

@@ -8,8 +8,7 @@ export const AlcanceApp = () => {
   return (
     <Provider store={ store }>
       <BrowserRouter>
-        {/* <AppRouter /> */}
-        <AppRouterNoLogin />
+        <AppRouter />        
       </BrowserRouter>
     </Provider>
   )

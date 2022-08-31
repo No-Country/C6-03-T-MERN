@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import * as s from './Kanban.styles.js'
 import { KanbanTask } from './KanbanTask.jsx'
+import axios from 'axios'
 
 export const Kanban = () => {
-  const posX = 47
-  const KanbanTitle = 'Formularios'
-  const KanbanDescription = 'Kanban para organizar el desarrollo de formularios'
-
+  
+  const posX = 47  
   const [isExpanded, setIsExpanded] = useState(false)
   const [newDescription, setNewDescription] = useState('')
   const [newTitle, setNewTitle] = useState('')
@@ -15,26 +14,30 @@ export const Kanban = () => {
     {
       id: 1,
       title: 'Hacer el Login',
-      description: 'Hola como estan hola como estan',
-      state: 'Pendiente'
+      description: 'Hola como estan hola como estan Hola como estan hola como estan Hola como estan hola como estan',
+      state: 'Pendiente',
+      username: "Juan Cruz"
     },
     {
       id: 2,
       title: 'Hacer el Register',
-      description: 'Hola como estan hola como estan',
-      state: 'En Proceso'
+      description: 'Hola como estan hola como estan Hola como estan hola como estan Hola como estan hola como estan',
+      state: 'En Proceso',
+      username: "German"
     },
     {
       id: 3,
       title: 'Crear los Modelos',
-      description: 'Hola como estan hola como estan',
-      state: 'Finalizado'
+      description: 'Hola como estan hola como estan Hola como estan hola como estan Hola como estan hola como estan',
+      state: 'Finalizado',
+      username: "Diego"
     },
     {
       id: 4,
       title: 'Crear el Logo',
-      description: 'Hola como estan hola como estan',
-      state: 'Pendiente'
+      description: 'Hola como estan hola como estan Hola como estan hola como estan Hola como estan hola como estan',
+      state: 'Pendiente',
+      username: "Enuel"
     }
   ])
 
@@ -46,7 +49,8 @@ export const Kanban = () => {
         {
           title: newTitle.trim(),
           description: newDescription.trim(),
-          state: e.target.state.value
+          state: e.target.state.value,
+          username: e.target.user.value
         }
       ])
       setNewTitle('')
@@ -68,7 +72,8 @@ export const Kanban = () => {
       id: message[0].id,
       title: message[0].title,
       description: message[0].description,
-      state: newState
+      state: newState,
+      username: message[0].username
     })
     console.log(test);
     setKanbanMessages(test);
@@ -113,9 +118,10 @@ export const Kanban = () => {
                   <option value="" disabled selected hidden>
                     Usuario
                   </option>
-                  <option value="Jose">Jose</option>
-                  <option value="Juan">Juan</option>
-                  <option value="Pablo">Pablo</option>
+                  <option value="Diego">Diego</option>
+                  <option value="Enuel">Enuel</option>
+                  <option value="German">German</option>
+                  <option value="German">German</option>
                 </select>
                 <select>
                   <option value="" disabled selected hidden>
