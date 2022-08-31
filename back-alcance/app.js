@@ -1,30 +1,17 @@
 const express = require("express");
-//Dotenv es una librería que permite leer variables de entorno
-require("dotenv").config();
-
-// Crear el servidor express
 const app = express();
-// const path = require("path");
-
-// MongoDB Atlas es una base de datos de alta disponibilidad
-const { mongoose } = require("./configDB");
-
-//Cors es un middleware que permite que una aplicación pueda comunicarse con otra a través de una API
+const httpServer = require("http").createServer(app);
 const cors = require("cors");
-
-
-// main().catch(err => console.log(err));
-// async function main() {
-//   await mongoose.connect('mongodb://localhost:27017/test');
-// }
-
-//Static files
-// app.use(express.static())
-// console.log(path.join(__dirname/front-alcance/public))
-
-//Middlewares
-app.use(cors());
+const corsManager = require("./cors/corsManager.js");
+require("dotenv").config();
+const { mongoose } = require("./configDB");
 app.use(express.json());
+
+const corsConfig = corsManager();
+app.use(cors(corsConfig.corsOptions))
+const socketManager = require("./socket/socketManager.js");
+socketManager(httpServer, corsConfig.whitelist);
+
 
 // Directorio Público
 app.use( express.static('public') );
@@ -46,6 +33,6 @@ app.use("/api/v1/projects", projectsRoutes);
 app.use("/api/v1/kanban", kanbanRoutes);
 
 //Esuchar peticiones
-app.listen( process.env.PORT, () => console.log(`server started on ${process.env.PORT}`));
+httpServer.listen( process.env.PORT, () => console.log(`server started on ${process.env.PORT}`));
 
 
