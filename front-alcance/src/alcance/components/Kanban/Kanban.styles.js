@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
-export const ChatBox = styled.div`
+export const KanbanBox = styled.div`
   display: block;
   background: #efefef;
   position: fixed;
@@ -14,7 +14,7 @@ export const ChatBox = styled.div`
   box-shadow: ${(props) => (props.shadow ? '-1px -1px 5px 0px #ccc' : 'none')};
   z-index: 1000;  
 `
-export const ChatBoxHeader = styled.div`
+export const KanbanBoxHeader = styled.div`
   background: #5a5eb9;
   height: 2.5rem;
   border-top-left-radius: 5px;
@@ -24,7 +24,7 @@ export const ChatBoxHeader = styled.div`
   font-size: 1rem;
   padding-top: 0.5rem;
 `
-export const ChatBoxBody = styled.div`
+export const KanbanBoxBody = styled.div`
   position: relative;
   height: 370px;
   height: auto;
@@ -44,12 +44,12 @@ export const ChatBoxBody = styled.div`
     z-index: -1;
   }
 `
-export const ChatBoxToggle = styled.div`
+export const KanbanBoxToggle = styled.div`
   float: right;
   margin-right: 15px;
   cursor: pointer;
 `
-export const ChatFormContainer = styled.div`  
+export const KanbanFormContainer = styled.div`  
   position: relative;
   padding: 0.5rem;
   border: none;
@@ -93,7 +93,7 @@ export const ChatFormContainer = styled.div`
   }
 `
 
-export const ChatCircle = styled.div`
+export const KanbanCircle = styled.div`
   position: fixed;  
   right: 180px;
   background: #0d6efd;
@@ -112,7 +112,7 @@ export const ChatCircle = styled.div`
     0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); */ 
 `
 
-export const ChatLogs = styled.div`
+export const KanbanLogs = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;

@@ -82,12 +82,12 @@ export const Kanban = () => {
   return (
     <>
       {isExpanded === false && (
-        <s.ChatCircle onClick={() => setIsExpanded(true)}>Kanban</s.ChatCircle>
+        <s.KanbanCircle onClick={() => setIsExpanded(true)}>Kanban</s.KanbanCircle>
       )}
       {isExpanded && (
         <>
-          <s.ChatBox right={'0.5rem'} bottom="4rem" width="20rem" shadow="true">
-            <s.ChatFormContainer>
+          <s.KanbanBox right={'0.5rem'} bottom="4rem" width="20rem" shadow="true">
+            <s.KanbanFormContainer>
               <form onSubmit={handleSubmit}  style={{height: "auto"}}>
                 <div> Nueva Tarea: </div>
                 <input
@@ -141,62 +141,62 @@ export const Kanban = () => {
                   Enviar
                 </button>
               </form>
-            </s.ChatFormContainer>
-          </s.ChatBox>
+            </s.KanbanFormContainer>
+          </s.KanbanBox>
 
-          <s.ChatBox
+          <s.KanbanBox
             right={posX + 'rem'}
             bottom="4rem"
             width="12.5rem"
             shadow="yes"
           >
-            <s.ChatBoxHeader>
+            <s.KanbanBoxHeader>
               Tareas Finalizadas
-              <s.ChatBoxToggle onClick={() => setIsExpanded(false)}>
+              <s.KanbanBoxToggle onClick={() => setIsExpanded(false)}>
                 X
-              </s.ChatBoxToggle>
-            </s.ChatBoxHeader>
-            <s.ChatBoxBody heigth="400">
-              <s.ChatLogs>
+              </s.KanbanBoxToggle>
+            </s.KanbanBoxHeader>
+            <s.KanbanBoxBody heigth="400">
+              <s.KanbanLogs>
                 {kanbanMessages.map((item, index) => {
                   if (item.state === 'Finalizado')
                     return <KanbanTask key={index} item={item} handleUpdateState={handleUpdateState}/>
                 })}
-              </s.ChatLogs>
-            </s.ChatBoxBody>
-          </s.ChatBox>
-          <s.ChatBox
+              </s.KanbanLogs>
+            </s.KanbanBoxBody>
+          </s.KanbanBox>
+          <s.KanbanBox
             right={posX - 13 + 'rem'}
             bottom="4rem"
             width="12.5rem"
             shadow="yes"
           >
-            <s.ChatBoxHeader>Tareas En Proceso</s.ChatBoxHeader>
-            <s.ChatBoxBody heigth="400">
-              <s.ChatLogs>
+            <s.KanbanBoxHeader>Tareas En Proceso</s.KanbanBoxHeader>
+            <s.KanbanBoxBody heigth="400">
+              <s.KanbanLogs>
                 {kanbanMessages.map(
                   (item, index) =>
                     item.state === 'En Proceso' && <KanbanTask  key={index} item={item}  handleUpdateState={handleUpdateState}/>
                 )}
-              </s.ChatLogs>
-            </s.ChatBoxBody>
-          </s.ChatBox>
-          <s.ChatBox
+              </s.KanbanLogs>
+            </s.KanbanBoxBody>
+          </s.KanbanBox>
+          <s.KanbanBox
             right={posX - 26 + 'rem'}
             bottom="4rem"
             width="12.5rem"
             shadow="yes"
           >
-            <s.ChatBoxHeader>Tareas Pendientes</s.ChatBoxHeader>
-            <s.ChatBoxBody heigth="400">
-              <s.ChatLogs>
+            <s.KanbanBoxHeader>Tareas Pendientes</s.KanbanBoxHeader>
+            <s.KanbanBoxBody heigth="400">
+              <s.KanbanLogs>
                 {kanbanMessages.map((item, index) => {
                   if (item.state === 'Pendiente')
                     return <KanbanTask  key={index} item={item} handleUpdateState={handleUpdateState}/>
                 })}
-              </s.ChatLogs>
-            </s.ChatBoxBody>
-          </s.ChatBox>
+              </s.KanbanLogs>
+            </s.KanbanBoxBody>
+          </s.KanbanBox>
         </>
       )}
     </>
