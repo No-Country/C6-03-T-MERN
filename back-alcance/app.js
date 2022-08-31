@@ -8,7 +8,7 @@ const { mongoose } = require("./configDB");
 app.use(express.json());
 
 const corsConfig = corsManager();
-app.use(cors(corsConfig.corsOptions))
+app.use(cors())
 const socketManager = require("./socket/socketManager.js");
 socketManager(httpServer, corsConfig.whitelist);
 
