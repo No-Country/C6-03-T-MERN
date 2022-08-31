@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { alcanceApi } from "../api";
-import { clearErrorMessage, onChecking, onLogin, onLogout } from "../store";
+import { clearErrorMessage, onChecking, onLogin, onLogout, onLogoutCalendar } from "../store";
 
 
 
@@ -54,7 +54,6 @@ export const useAuthStore = () => {
 
     try {
       const { data } = await alcanceApi.get('/auth/renew');
-      console.log({data})
       localStorage.setItem('token', data.token );
       localStorage.setItem('token-init-date', new Date().getItem() );
       dispatch( onLogin({ name: data.name, uid: data.uid }) );
@@ -66,6 +65,7 @@ export const useAuthStore = () => {
 
   const startLogout = () => {
     localStorage.clear();
+    dispatch( onLogoutCalendar() );
     dispatch( onLogout() );
   }
 
