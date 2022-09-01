@@ -4,9 +4,9 @@ import ContainerTeams from "./src/components/ContainerTeams";
 import AddTeam from "./src/components/AddTeam";
 import CreateTeam from "./src/components/CreateTeam";
 
-export const WaitingRoom = () =>{
+export const WaitingRoomComponent = () =>{
   return (
-    <div class="contenedor">
+    <div className="contenedor">
       <Users />
       <ContainerTeams />
       <div className="container-newTeams">
