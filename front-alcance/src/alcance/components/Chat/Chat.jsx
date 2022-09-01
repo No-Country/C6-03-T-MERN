@@ -2,17 +2,19 @@ import { useState, useEffect, useRef } from 'react'
 import * as s from './Chat.styles.js'
 import io from 'socket.io-client'
 import { joinRoom, leftRoom, sendNewMessage } from './conexion.js'
+import { useSelector} from "react-redux"
 
   const endPoint = import.meta.env.VITE_URI_CHAT_SERVER
   console.log(endPoint)
   var socket = io(endPoint, {reconnection: false})  
 
-export const Chat = () => {  
-
+export const Chat = () => {
+  
+  const { status, user : username, errorMessage } = useSelector( state => state.auth );
+  console.log("user: " + username.name)
   console.log('Render Chat Component')
-
   const [isExpanded, setIsExpanded] = useState(false)
-  const [user, setUser] = useState('Pepe' + Math.floor(Math.random() * 1000))
+  const [user, setUser] = useState(username.name + Math.floor(Math.random() * 1000))
   const [usersList, setUsersList] = useState([])
   const [isJoined, setIsJoined] = useState(false)
   const [newMessage, setNewMessage] = useState('')
@@ -151,7 +153,7 @@ export const Chat = () => {
             </s.ChatFormContainer>
           </s.ChatBox>
           {isJoined && (
-            <s.ChatBox right="380px" bottom="30px" width="140px" shadow="yes">
+            <s.ChatBox right="380px" bottom="30px" width="160px" shadow="yes">
               <s.ChatBoxHeader>Usuarios</s.ChatBoxHeader>
               <s.ChatBoxBody heigth="400">
                 <s.UserListContainer>

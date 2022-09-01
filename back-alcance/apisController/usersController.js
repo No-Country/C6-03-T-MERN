@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Usuario = require("../models/Usuario");
 const Project = require("../models/Project");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -6,7 +7,7 @@ const saltRounds = 10;
 const usersController = {
   registerProcess: async (req, res) => {
     let hash = await bcrypt.hash(req.body.password, saltRounds);
-    const user = new User({
+    const user = new Usuario({
       username: req.body.username,
       password: hash,
       role: "user",
@@ -29,7 +30,7 @@ const usersController = {
     }
   },
   loginProcess: (req, res) => {
-    User.findOne({ email: req.body.email }, (error, user) => {
+    Usuario.findOne({ email: req.body.email }, (error, user) => {
       if (error) {
         res.send(error);
       } else {
@@ -57,7 +58,7 @@ const usersController = {
     }).sort({ _id: -1 });
   },
   userList: (req, res) => {
-    User.find({}, (error, users) => {
+    Usuario.find({}, (error, users) => {
       if (error) {
         res.json(error);
       } else {
@@ -74,7 +75,7 @@ const usersController = {
     }).sort({ _id: -1 });
   },
   findOneUser: async (req, res) => {
-    const user = await User.findById(req.params.id);
+    const user = await Usuario.findById(req.params.id);
     const response = {
       meta: {
         status: 200,
@@ -89,7 +90,7 @@ const usersController = {
     const { username, password, role, email, country, projectId } = req.body;
 
     let userProjects;
-    let userEdit = await User.findById(req.params.id);
+    let userEdit = await Usuario.findById(req.params.id);
     if (projectId == null) {
       userProjects = userEdit.projectId;
     } else {
@@ -105,11 +106,11 @@ const usersController = {
       country,
       projectId: userProjects,
     };
-    await User.findByIdAndUpdate(req.params.id, editUser);
+    await Usuario.findByIdAndUpdate(req.params.id, editUser);
     res.json({ status: "User updated" });
   },
   userDelete: async (req, res) => {
-    const user = await User.findById(req.params.id);
+    const user = await Usuario.findById(req.params.id);
     projectsOfUser = [];
     user.projectId.forEach((project) => {
       projectsOfUser.push(project);
@@ -131,7 +132,7 @@ const usersController = {
     }
     deletedUserForProjects();
 
-    await User.findByIdAndDelete(req.params.id);
+    await Usuario.findByIdAndDelete(req.params.id);
     res.json({
       status: "User deleted",
       msg: "User deleted in this projects" + projectsOfUser,
@@ -139,7 +140,7 @@ const usersController = {
   },
 
   findProject: async (req, res) => {
-    const user = await User.findById(req.params.id);
+    const user = await Usuario.findById(req.params.id);
     const response = {
       meta: {
         status: 200,

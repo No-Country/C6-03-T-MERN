@@ -1,4 +1,4 @@
-import { Navbar, Chat  } from "../"
+import { Navbar, Chat, Kanban, WaitingRoom  } from "../"
 import { CalendarComponent} from "../components/CalendarComponent"
 
 
@@ -8,6 +8,8 @@ export const AlcancePage = () => {
       <Navbar />
       <CalendarComponent />
       <Chat />
+      <Kanban />
+      <WaitingRoom />
     </>
   )
 }

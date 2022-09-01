@@ -1,41 +1,23 @@
 const express = require("express");
-//Dotenv es una librería que permite leer variables de entorno
-require("dotenv").config();
-
-// Crear el servidor express
 const app = express();
-// const path = require("path");
-
-
-//Dotenv es una librería que permite leer variables de entorno
-require("dotenv").config({ path:'variables.env'});
-
-// MongoDB Atlas es una base de datos de alta disponibilidad
+const httpServer = require("http").createServer(app);
+const cors = require("cors");
+const corsManager = require("./cors/corsManager.js");
+require("dotenv").config();
 const { mongoose } = require("./configDB");
-
-//Cors es un middleware que permite que una aplicación pueda comunicarse con otra a través de una API
-const cors = require("cors");
-
-//-- Config DB MONGO --//
-const mongoose = require("mongoose");
-// "mongodb+srv://german1:german@cluster0.7vpbe5a.mongodb.net/?retryWrites=true&w=majority";
-// const MONGOURI = "mongodb+srv://MERN_ALCANCE:alcance123@cluster0.fc2kmvg.mongodb.net"
-// mongoose.connect(MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true })
-
-mongoose.connect(process.env.DB_URL)
-  .then((DB) => console.log("DB is connected"))
-  .catch((err) => console.error(err));
-  
-//Cors es un middleware que permite que una aplicación pueda comunicarse con otra a través de una API
-const cors = require("cors");
-  
-//Static files
-// app.use(express.static())
-// console.log(path.join(__dirname/front-alcance/public))
-  
-//Middlewares
-app.use(cors());
 app.use(express.json());
+
+const corsConfig = corsManager();
+app.use(cors())
+const socketManager = require("./socket/socketManager.js");
+socketManager(httpServer, corsConfig.whitelist);
+
+
+const corsConfig = corsManager();
+app.use(cors())
+const socketManager = require("./socket/socketManager.js");
+socketManager(httpServer, corsConfig.whitelist);
+
 
 // Directorio Público
 app.use( express.static('public') );
@@ -63,7 +45,6 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, host, () => console.log(`server started on ${PORT}`));
 
 //Esuchar peticiones
-app.listen( process.env.PORT, () => console.log(`server started on ${process.env.PORT}`));
-
+httpServer.listen( process.env.PORT, () => console.log(`server started on ${process.env.PORT}`));
 
 
