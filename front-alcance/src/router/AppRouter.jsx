@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { AlcancePage } from "../alcance";
+import { AlcancePage, WaitingRoom } from "../alcance";
 import { MainPageAuth } from "../auth";
 import { useAuthStore } from "../hooks";
 
@@ -32,8 +32,8 @@ export const AppRouter = () => {
           )
           : (
             <>
-              <Route path="/" element={<AlcancePage />} >
-              </Route>
+              <Route path="/" element={<WaitingRoom />} />              
+              <Route path="/alcancePage" element={<AlcancePage />} />              
               <Route path="/*" element={<Navigate to="/" />} />
             </>
           )
