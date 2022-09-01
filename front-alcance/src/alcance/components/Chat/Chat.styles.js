@@ -28,7 +28,7 @@ export const ChatBoxHeader = styled.div`
     border-color: white;
     border-radius: 10px;
     padding-left: 0.7rem;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     color: white;
     background-color: #5a5eb9;
   }
@@ -189,6 +189,7 @@ export const UserListContainer = styled.div`
   padding-top: 5px;
   height: 415px;
   overflow-y: hidden;  
+  font-size: 0.8rem;
 `
 
 export const UserList = styled.div`
