@@ -1,38 +1,40 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const taskSchema = new Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
     type: String,
-    required: true
+    required: true,
   },
   endTime: {
-    type: Date,
-    required: true
+    type: String,
+    required: true,
   },
   kanbanId: {
     type: String,
-    required: true
+    required: true,
   },
   userId: {
-    type: Array
+    type: Array,
+    required: true,
   },
   difficulty: {
     type: String,
-    enum: ['Simple', 'Media', 'Compleja'],
-    default: 'Simple'
+    enum: ["Simple", "Media", "Compleja"],
+    default: "Simple",
+    required: true,
   },
   taskState: {
     type: String,
     required: true,
-    enum: ['Pendiente', 'En progreso', 'Finalizada'],
-    default: 'Pendiente'
-  }
-})
+    enum: ["Pendiente", "En progreso", "Finalizada"],
+    default: "Pendiente",
+  },
+});
 
-const Task = mongoose.model('Task', taskSchema);
+const Task = mongoose.model("Task", taskSchema);
 module.exports = Task;
