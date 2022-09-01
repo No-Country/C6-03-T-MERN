@@ -2,10 +2,13 @@ import { useState, useEffect, useRef } from 'react'
 import * as s from './Kanban.styles.js'
 import { KanbanTask } from './KanbanTask.jsx'
 import axios from 'axios'
+import { getEnvVariables } from '../../../helpers'
+const { VITE_API_URL } = getEnvVariables()
 
 export const Kanban = () => {
-  
-  const posX = 47  
+  const posX = 47
+  const [isLoading, setIsLoading] = useState(true)
+  const [userList, setUserList] = useState([])
   const [isExpanded, setIsExpanded] = useState(false)
   const [newDescription, setNewDescription] = useState('')
   const [newTitle, setNewTitle] = useState('')
@@ -14,32 +17,50 @@ export const Kanban = () => {
     {
       id: 1,
       title: 'Hacer el Login',
-      description: 'Hola como estan hola como estan Hola como estan hola como estan Hola como estan hola como estan',
+      description:
+        'Hola como estan hola como estan Hola como estan hola como estan Hola como estan hola como estan',
       state: 'Pendiente',
-      username: "Juan Cruz"
+      username: 'Juan Cruz'
     },
     {
       id: 2,
       title: 'Hacer el Register',
-      description: 'Hola como estan hola como estan Hola como estan hola como estan Hola como estan hola como estan',
+      description:
+        'Hola como estan hola como estan Hola como estan hola como estan Hola como estan hola como estan',
       state: 'En Proceso',
-      username: "German"
+      username: 'German'
     },
     {
       id: 3,
       title: 'Crear los Modelos',
-      description: 'Hola como estan hola como estan Hola como estan hola como estan Hola como estan hola como estan',
+      description:
+        'Hola como estan hola como estan Hola como estan hola como estan Hola como estan hola como estan',
       state: 'Finalizado',
-      username: "Diego"
+      username: 'Diego'
     },
     {
       id: 4,
       title: 'Crear el Logo',
-      description: 'Hola como estan hola como estan Hola como estan hola como estan Hola como estan hola como estan',
+      description:
+        'Hola como estan hola como estan Hola como estan hola como estan Hola como estan hola como estan',
       state: 'Pendiente',
-      username: "Enuel"
+      username: 'Enuel'
     }
   ])
+
+  useEffect(() => {
+    const callApi = async () => {
+      try {
+        const response = await axios.get(VITE_API_URL + '/users/list')
+        console.log('Usuarios: ' + JSON.stringify(response.data.data))
+        setUserList(response.data)
+        setIsLoading(false)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    callApi()
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -58,16 +79,15 @@ export const Kanban = () => {
     }
   }
 
-  const handleUpdateState = (id) =>
-  {
-    const message = kanbanMessages.filter( (km) => km.id === id);
-    console.log(message[0].id); 
-    const otherMessage = kanbanMessages.filter( (km) => km.id !== id);   
-    const test = [ ...otherMessage];
-    let newState = "Pendiente";
-    if (message[0].state === "Pendiente") newState = "En Proceso"
-    if (message[0].state === "En Proceso") newState = "Finalizado"
-    if (message[0].state === "Finalizado") newState = "Pendiente"
+  const handleUpdateState = (id) => {
+    const message = kanbanMessages.filter((km) => km.id === id)
+    console.log(message[0].id)
+    const otherMessage = kanbanMessages.filter((km) => km.id !== id)
+    const test = [...otherMessage]
+    let newState = 'Pendiente'
+    if (message[0].state === 'Pendiente') newState = 'En Proceso'
+    if (message[0].state === 'En Proceso') newState = 'Finalizado'
+    if (message[0].state === 'Finalizado') newState = 'Pendiente'
     test.push({
       id: message[0].id,
       title: message[0].title,
@@ -75,20 +95,27 @@ export const Kanban = () => {
       state: newState,
       username: message[0].username
     })
-    console.log(test);
-    setKanbanMessages(test);
+    console.log(test)
+    setKanbanMessages(test)
   }
 
   return (
     <>
       {isExpanded === false && (
-        <s.KanbanCircle onClick={() => setIsExpanded(true)}>Kanban</s.KanbanCircle>
+        <s.KanbanCircle onClick={() => setIsExpanded(true)}>
+          Kanban
+        </s.KanbanCircle>
       )}
       {isExpanded && (
         <>
-          <s.KanbanBox right={'0.5rem'} bottom="4rem" width="20rem" shadow="true">
+          <s.KanbanBox
+            right={'0.5rem'}
+            bottom="4rem"
+            width="20rem"
+            shadow="true"
+          >
             <s.KanbanFormContainer>
-              <form onSubmit={handleSubmit}  style={{height: "auto"}}>
+              <form onSubmit={handleSubmit} style={{ height: 'auto' }}>
                 <div> Nueva Tarea: </div>
                 <input
                   type="text"
@@ -96,16 +123,16 @@ export const Kanban = () => {
                   placeholder=" Titulo..."
                   onChange={(e) => setNewTitle(e.target.value)}
                   value={newTitle}
-                />                
-                  <textarea
-                    rows="10"
-                    cols="40"
-                    style={{height: "10rem"}}                  
-                    name="description"
-                    placeholder=" Descripcion..."
-                    onChange={(e) => setNewDescription(e.target.value)}
-                    value={newDescription}
-                  />
+                />
+                <textarea
+                  rows="10"
+                  cols="40"
+                  style={{ height: '10rem' }}
+                  name="description"
+                  placeholder=" Descripcion..."
+                  onChange={(e) => setNewDescription(e.target.value)}
+                  value={newDescription}
+                />
                 <select name="state">
                   <option value="" disabled selected hidden>
                     Estado
@@ -118,10 +145,18 @@ export const Kanban = () => {
                   <option value="" disabled selected hidden>
                     Usuario
                   </option>
-                  <option value="Diego">Diego</option>
-                  <option value="Enuel">Enuel</option>
-                  <option value="German">German</option>
-                  <option value="German">German</option>
+                  {!isLoading && Array.isArray(userList) &&
+                    userList.map((userKanban) => (
+                      <option value={userKanban}>{userKanban}</option>
+                    ))}
+                  {!isLoading && !Array.isArray(userList) &&
+                  <>
+                    <option value="Diego">Diego</option>
+                    <option value="Enuel">Enuel</option>
+                    <option value="German">German</option>
+                    <option value="German">German</option>
+                  </>
+                  }
                 </select>
                 <select>
                   <option value="" disabled selected hidden>
@@ -160,7 +195,13 @@ export const Kanban = () => {
               <s.KanbanLogs>
                 {kanbanMessages.map((item, index) => {
                   if (item.state === 'Finalizado')
-                    return <KanbanTask key={index} item={item} handleUpdateState={handleUpdateState}/>
+                    return (
+                      <KanbanTask
+                        key={index}
+                        item={item}
+                        handleUpdateState={handleUpdateState}
+                      />
+                    )
                 })}
               </s.KanbanLogs>
             </s.KanbanBoxBody>
@@ -176,7 +217,13 @@ export const Kanban = () => {
               <s.KanbanLogs>
                 {kanbanMessages.map(
                   (item, index) =>
-                    item.state === 'En Proceso' && <KanbanTask  key={index} item={item}  handleUpdateState={handleUpdateState}/>
+                    item.state === 'En Proceso' && (
+                      <KanbanTask
+                        key={index}
+                        item={item}
+                        handleUpdateState={handleUpdateState}
+                      />
+                    )
                 )}
               </s.KanbanLogs>
             </s.KanbanBoxBody>
@@ -192,7 +239,13 @@ export const Kanban = () => {
               <s.KanbanLogs>
                 {kanbanMessages.map((item, index) => {
                   if (item.state === 'Pendiente')
-                    return <KanbanTask  key={index} item={item} handleUpdateState={handleUpdateState}/>
+                    return (
+                      <KanbanTask
+                        key={index}
+                        item={item}
+                        handleUpdateState={handleUpdateState}
+                      />
+                    )
                 })}
               </s.KanbanLogs>
             </s.KanbanBoxBody>
