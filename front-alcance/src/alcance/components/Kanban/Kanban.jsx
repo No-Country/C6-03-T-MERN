@@ -53,7 +53,7 @@ export const Kanban = () => {
       try {
         const response = await axios.get(VITE_API_URL + '/users/list')
         console.log('Usuarios: ' + JSON.stringify(response.data.data))
-        setUserList(response.data)
+        setUserList(response.data.data)
         setIsLoading(false)
       } catch (error) {
         console.log(error)
@@ -146,8 +146,8 @@ export const Kanban = () => {
                     Usuario
                   </option>
                   {!isLoading && Array.isArray(userList) &&
-                    userList.map((userKanban) => (
-                      <option value={userKanban}>{userKanban}</option>
+                    userList.map((data) => (
+                      <option value={data.name}>{data.name}/{data.email}</option>
                     ))}
                   {!isLoading && !Array.isArray(userList) &&
                   <>
