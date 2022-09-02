@@ -4,15 +4,14 @@ import { KanbanTask } from './KanbanTask.jsx'
 import axios from 'axios'
 import { getEnvVariables } from '../../../helpers'
 const { VITE_API_URL } = getEnvVariables()
+import { useFormik } from 'formik'
+import * as yup from 'yup'
 
 export const Kanban = () => {
   const posX = 47
   const [isLoading, setIsLoading] = useState(true)
   const [userList, setUserList] = useState([])
   const [isExpanded, setIsExpanded] = useState(false)
-  const [newDescription, setNewDescription] = useState('')
-  const [newTitle, setNewTitle] = useState('')
-  const [newDuration, setNewDuration] = useState('')
   const [kanbanMessages, setKanbanMessages] = useState([
     {
       id: 1,
@@ -52,7 +51,7 @@ export const Kanban = () => {
     const callApi = async () => {
       try {
         const response = await axios.get(VITE_API_URL + '/users/list')
-        console.log('Usuarios: ' + JSON.stringify(response.data.data))
+        // console.log('Usuarios: ' + JSON.stringify(response.data.data))
         setUserList(response.data.data)
         setIsLoading(false)
       } catch (error) {
@@ -62,22 +61,75 @@ export const Kanban = () => {
     callApi()
   }, [])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (newDescription.trim() !== '') {
-      setKanbanMessages((oldKabanMessages) => [
-        ...oldKabanMessages,
-        {
-          title: newTitle.trim(),
-          description: newDescription.trim(),
-          state: e.target.state.value,
-          username: e.target.user.value
-        }
-      ])
-      setNewTitle('')
-      setNewDescription('')
-    }
+  const initialValues = {
+    title: "",
+    description: "",
+    state: "",
+    user: "",
+    difficulty: "",
+    duration: 1,
+  };
+
+  const validationSchema = yup.object().shape({
+    title: yup
+      .string()
+      .min(
+        3,
+        ({ min }) =>
+          `El titulo debe tener al menos ${min} caracteres!`
+      )
+      .required('El titulo no debe estar vacio'),
+    description: yup
+      .string()
+      .min(
+        3,
+        ({ min }) =>
+          `La description debe tener al menos ${min} caracteres!`
+      )
+      .required('La descripcion no debe estar vacia'),
+    state: yup
+      .string()
+      .required('Por favor, selecciona un estado de la tarea')
+      .oneOf(["Pendiente", "En Proceso", "Finalizado"]),
+    user: yup
+      .string()
+      .required('Por favor, seleccion un usuario')
+      .oneOf(userList.map((data) => data.name)),
+    difficulty: yup
+      .string()
+      .required('Por favor, selecciona una dificultad')
+      .oneOf(["Facil", "Intermedio", "Dificil"]),    
+     duration: yup
+      .number()
+      .integer()
+      .min(1, "La duracion debe ser mayor a 1 hora")
+      .required('La duracion debe ser mayor a 1')
+  })
+
+  const onSubmit = (e) => { 
+       setKanbanMessages((oldKabanMessages) => [
+         ...oldKabanMessages,
+         {
+           title: values.title.trim(),
+           description: values.description.trim(),
+           state: values.state,
+           username: values.user
+         }
+       ])
+       resetForm();    
   }
+
+  const formik = useFormik({ initialValues, validationSchema, onSubmit });
+
+  const {
+    handleChange,
+    handleSubmit,
+    errors,
+    touched,
+    handleBlur,
+    values,
+    resetForm,
+  } = formik;
 
   const handleUpdateState = (id) => {
     const message = kanbanMessages.filter((km) => km.id === id)
@@ -94,8 +146,8 @@ export const Kanban = () => {
       description: message[0].description,
       state: newState,
       username: message[0].username
-    })
-    console.log(test)
+     })
+    // console.log(test)
     setKanbanMessages(test)
   }
 
@@ -121,19 +173,32 @@ export const Kanban = () => {
                   type="text"
                   name="title"
                   placeholder=" Titulo..."
-                  onChange={(e) => setNewTitle(e.target.value)}
-                  value={newTitle}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.title}
                 />
+                {errors.title && touched.title && (
+                <s.ErrorMsg>{errors.title}</s.ErrorMsg>
+                )}  
                 <textarea
                   rows="10"
                   cols="40"
                   style={{ height: '10rem' }}
                   name="description"
                   placeholder=" Descripcion..."
-                  onChange={(e) => setNewDescription(e.target.value)}
-                  value={newDescription}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.description}
                 />
-                <select name="state">
+                {errors.description && touched.description && (
+                <s.ErrorMsg>{errors.description}</s.ErrorMsg>
+                )}  
+                <select 
+                  name="state"
+                  onChange={handleChange}
+                  onBlur={handleBlur} 
+                  value={values.state}  
+                >
                   <option value="" disabled selected hidden>
                     Estado
                   </option>
@@ -141,13 +206,21 @@ export const Kanban = () => {
                   <option value="En Proceso">En Proceso</option>
                   <option value="Finalizado">Finalizado</option>
                 </select>
-                <select name="user">
+                {errors.state && touched.state && (
+                <s.ErrorMsg>{errors.state}</s.ErrorMsg>
+                )}
+                <select
+                name="user"
+                onChange={handleChange}
+                onBlur={handleBlur} 
+                value={values.user}               
+                >
                   <option value="" disabled selected hidden>
                     Usuario
                   </option>
                   {!isLoading && Array.isArray(userList) &&
-                    userList.map((data) => (
-                      <option value={data.name}>{data.name}/{data.email}</option>
+                    userList.map((data, index) => (
+                      <option key={index} value={data.name}>{data.name}/{data.email}</option>
                     ))}
                   {!isLoading && !Array.isArray(userList) &&
                   <>
@@ -158,7 +231,15 @@ export const Kanban = () => {
                   </>
                   }
                 </select>
-                <select>
+                {errors.user && touched.user && (
+                <s.ErrorMsg>{errors.user}</s.ErrorMsg>
+                )}
+                <select
+                name="difficulty"
+                onChange={handleChange}
+                onBlur={handleBlur} 
+                value={values.difficulty}
+                >
                   <option value="" disabled selected hidden>
                     Dificultad
                   </option>
@@ -166,12 +247,21 @@ export const Kanban = () => {
                   <option value="Intermedio">Intermedio</option>
                   <option value="Dificil">Dificil</option>
                 </select>
+                {errors.difficulty && touched.difficulty && (
+                <s.ErrorMsg>{errors.difficulty}</s.ErrorMsg>
+                )}
+                <label> Duracion en horas: </label>
                 <input
+                  name="duration"
                   type="number"
                   placeholder=" Duracion..."
-                  onChange={(e) => setNewDuration(e.target.value)}
-                  value={newDuration}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.duration}
                 ></input>
+                {errors.duration && touched.duration && (
+                <s.ErrorMsg>{errors.duration}</s.ErrorMsg>
+                )}
                 <button type="submit" style={{ alignSelf: 'flex-end' }}>
                   Enviar
                 </button>
