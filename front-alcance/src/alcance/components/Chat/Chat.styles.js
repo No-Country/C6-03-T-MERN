@@ -111,7 +111,7 @@ export const ChatCircle = styled.div`
   padding-left: .9rem;
   padding-top: 1.4rem;
   cursor: pointer;
-  z-index: 2000;
+  z-index: 1000;
   &:hover {
     background: #004efd;
   }
