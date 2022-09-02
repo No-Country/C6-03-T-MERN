@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Users from "./components/Users";
-import ContainerTeams from "./components/ContainerTeams";
-import AddTeam from "./components/AddTeam";
-import CreateTeam from "./components/CreateTeam";
+import Users from "../../front-alcance/src/alcance/components/waitingRoom/src/components/Users";
+import ContainerTeams from "../../front-alcance/src/alcance/components/waitingRoom/src/components/ContainerTeams";
+import AddTeam from "../../front-alcance/src/alcance/components/waitingRoom/src/components/AddTeam";
+import CreateTeam from "../../front-alcance/src/alcance/components/waitingRoom/src/components/CreateTeam";
 
 export default function App() {
 //   const [projects, setProjects] = useState([]);

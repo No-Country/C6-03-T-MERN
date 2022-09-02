@@ -4,14 +4,7 @@ const httpServer = require("http").createServer(app);
 const cors = require("cors");
 const corsManager = require("./cors/corsManager.js");
 require("dotenv").config();
-const { mongoose } = require("./configDB");
 app.use(express.json());
-
-const corsConfig = corsManager();
-app.use(cors())
-const socketManager = require("./socket/socketManager.js");
-socketManager(httpServer, corsConfig.whitelist);
-
 
 const corsConfig = corsManager();
 app.use(cors())
