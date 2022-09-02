@@ -10,4 +10,4 @@ export * from './components/Chat/Chat';
 export * from './components/Kanban/Kanban';
 export * from './pages/AlcancePage';
 export * from './pages/WaitingRoom';
-export * from './components/WaitingRoom/WaitingRoomComponent'
+export * from './components/waitingRoom/WaitingRoomComponent'
