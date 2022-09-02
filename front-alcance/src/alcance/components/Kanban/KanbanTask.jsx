@@ -28,6 +28,7 @@ export const KanbanTask = (props) => {
         {isExpanded && props.item.description}
       </s.Text>
       <s.Author>{props.item.username.toUpperCase()}</s.Author>
+      {props.showState === "true" && <div>{props.item.state}</div>}
     </s.Log>
   )
 }

@@ -163,3 +163,9 @@ export const UserList = styled.div`
   }
 `
 
+export const ErrorMsg = styled.div`
+  color: red;
+  font-size: 1rem;
+`
+
+
