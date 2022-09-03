@@ -1,6 +1,12 @@
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
+
+export const KanbanContainer = styled.div`
+  display: flex;
+  margin: 1rem;
+`
+
 export const KanbanBox = styled.div`
   display: flex;
   flex-direction: row;
@@ -9,8 +15,9 @@ export const KanbanBox = styled.div`
   width: 100%;    
   border-radius: 5px;
   margin-bottom: 1rem;
-  box-shadow: ${(props) => (props.shadow ? '-1px -1px 5px 0px #ccc' : 'none')};  
-  max-height: 50vh;
+  box-shadow: ${(props) => (props.shadow ? '-1px -1px 5px 0px #ccc' : 'none')}; 
+  max-height: 45rem; 
+  overflow-y: hidden;
 `
 export const KanbanBoxHeader = styled.div`
   background: #5a5eb9;  
@@ -28,26 +35,28 @@ export const KanbanBoxBody = styled.div`
   overflow-y: scroll;
 `
 export const KanbanBoxToggle = styled.div`
-  float: right;
-  margin-right: 15px;
-  cursor: pointer;
+  display: flex;  
+  justify-content  : flex-end ;
+  width: 1rem;
 `
 export const KanbanFormContainer = styled.div`    
-  padding: 0.5rem;  
+  padding: 0.5rem; 
+  margin: 0.5rem; 
   border: 1px solid #ccc;
   border-radius: 5px;
   color: #888;  
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;  
   background: #efefef;  
-  max-height: auto;
+  max-height: 45rem;  
+  max-width: 25rem;
   &::placeholder {
     color: #888;
   }
   form {
     margin-bottom: 0;
     display: flex;
-    flex-direction: column;        
+    flex-direction: column;            
   }  
 
   input, select, div, textarea {    
@@ -72,7 +81,8 @@ export const KanbanFormContainer = styled.div`
 
 export const KanbanCircle = styled.div`
   position: fixed;  
-  right: 180px;
+  right: 30%;
+  top: 0px;
   background: #0d6efd;
   width: 70px;
   height: 70px;
@@ -91,15 +101,16 @@ export const KanbanCircle = styled.div`
 
 export const KanbanLogs = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column;  
   flex-wrap: nowrap;
   padding: 0.8rem;  
-  overflow-y: scroll;
-  overflow-x: hidden;    
+  overflow-y: hidden;
+  overflow-x: hidden;  
+  width: 100%;
 `
 
 export const Log = styled.div`
-  margin: 5px 10px;
+  margin: 10px auto;
   padding: 10px;
   color: black;
   font-size: 0.8rem;  

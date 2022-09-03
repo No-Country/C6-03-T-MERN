@@ -7,8 +7,8 @@ export const AlcancePage = () => {
     <>
       <Navbar />
       <Kanban />
-      <CalendarComponent />      
       <Chat />
+      <CalendarComponent />      
       
     </>
   )
