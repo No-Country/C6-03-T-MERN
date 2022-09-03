@@ -156,15 +156,10 @@ export const Kanban = () => {
         </s.KanbanCircle>
       )}
       {isExpanded && (
-        <>
-          <s.KanbanBox
-            right={'0.5rem'}
-            bottom="4rem"
-            width="20rem"
-            shadow="true"
-          >
+        <div>
+          <s.KanbanBox>
             <s.KanbanFormContainer>
-              <form onSubmit={handleSubmit} style={{ height: 'auto' }}>
+              <form onSubmit={handleSubmit}>
                 <div> Nueva Tarea: </div>
                 <input
                   type="text"
@@ -262,28 +257,23 @@ export const Kanban = () => {
                 {errors.duration && touched.duration && (
                   <s.ErrorMsg>{errors.duration}</s.ErrorMsg>
                 )}
-                <button type="submit" style={{ alignSelf: 'flex-end' }}>
+                <button type="submit">
                   Enviar
                 </button>
               </form>
             </s.KanbanFormContainer>
-          </s.KanbanBox>
+          
 
           {!isPhone && (
-            <>
-              <s.KanbanBox
-                right={posX + 'rem'}
-                bottom="4rem"
-                width="12.5rem"
-                shadow="yes"
-              >
+            <>          
+                
+                <s.KanbanBoxBody heigth="400">
                 <s.KanbanBoxHeader>
                   Tareas Finalizadas
                   <s.KanbanBoxToggle onClick={() => setIsExpanded(false)}>
                     X
                   </s.KanbanBoxToggle>
                 </s.KanbanBoxHeader>
-                <s.KanbanBoxBody heigth="400">
                   <s.KanbanLogs>
                     {kanbanMessages.map((item, index) => {
                       if (item.state === 'Finalizado')
@@ -296,16 +286,9 @@ export const Kanban = () => {
                         )
                     })}
                   </s.KanbanLogs>
-                </s.KanbanBoxBody>
-              </s.KanbanBox>
-              <s.KanbanBox
-                right={posX - 13 + 'rem'}
-                bottom="4rem"
-                width="12.5rem"
-                shadow="yes"
-              >
-                <s.KanbanBoxHeader>Tareas En Proceso</s.KanbanBoxHeader>
+                </s.KanbanBoxBody>                
                 <s.KanbanBoxBody heigth="400">
+                <s.KanbanBoxHeader>Tareas En Proceso</s.KanbanBoxHeader>
                   <s.KanbanLogs>
                     {kanbanMessages.map(
                       (item, index) =>
@@ -318,16 +301,10 @@ export const Kanban = () => {
                         )
                     )}
                   </s.KanbanLogs>
-                </s.KanbanBoxBody>
-              </s.KanbanBox>
-              <s.KanbanBox
-                right={posX - 26 + 'rem'}
-                bottom="4rem"
-                width="12.5rem"
-                shadow="yes"
-              >
-                <s.KanbanBoxHeader>Tareas Pendientes</s.KanbanBoxHeader>
+                </s.KanbanBoxBody>              
+                
                 <s.KanbanBoxBody heigth="400">
+                <s.KanbanBoxHeader>Tareas Pendientes</s.KanbanBoxHeader>
                   <s.KanbanLogs>
                     {kanbanMessages.map((item, index) => {
                       if (item.state === 'Pendiente')
@@ -340,24 +317,18 @@ export const Kanban = () => {
                         )
                     })}
                   </s.KanbanLogs>
-                </s.KanbanBoxBody>
-              </s.KanbanBox>
+                </s.KanbanBoxBody>          
             </>
           )}
-          {isPhone && (
-            <s.KanbanBox
-              right={posX - 26 + 'rem'}
-              bottom="4rem"
-              width="12.5rem"
-              shadow="yes"
-            >
-              <s.KanbanBoxHeader>
+          {isPhone && ( 
+            <>              
+              <s.KanbanBoxBody heigth="400">
+                <s.KanbanBoxHeader>
                 Tareas
                 <s.KanbanBoxToggle onClick={() => setIsExpanded(false)}>
                   X
                 </s.KanbanBoxToggle>
               </s.KanbanBoxHeader>
-              <s.KanbanBoxBody heigth="400">
                 <s.KanbanLogs>
                   {kanbanMessages.map((item, index) => {
                     
@@ -372,9 +343,11 @@ export const Kanban = () => {
                   })}
                 </s.KanbanLogs>
               </s.KanbanBoxBody>
-            </s.KanbanBox>
+              </>            
+            
           )}
-        </>
+          </s.KanbanBox>
+        </div>
       )}
     </>
   )
