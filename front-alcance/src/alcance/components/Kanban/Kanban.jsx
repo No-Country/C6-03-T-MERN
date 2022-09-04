@@ -16,7 +16,7 @@ export const Kanban = () => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [kanbanMessages, setKanbanMessages] = useState([
     {
-      id: 1,
+      id: 0,
       title: 'Hacer el Login',
       description:
         'Hola como estan hola como estan Hola como estan hola como estan Hola como estan hola como estan',
@@ -24,7 +24,7 @@ export const Kanban = () => {
       username: 'Juan Cruz'
     },
     {
-      id: 2,
+      id: 1,
       title: 'Hacer el Register',
       description:
         'Hola como estan hola como estan Hola como estan hola como estan Hola como estan hola como estan',
@@ -32,7 +32,7 @@ export const Kanban = () => {
       username: 'German'
     },
     {
-      id: 3,
+      id: 2,
       title: 'Crear los Modelos',
       description:
         'Hola como estan hola como estan Hola como estan hola como estan Hola como estan hola como estan',
@@ -40,7 +40,7 @@ export const Kanban = () => {
       username: 'Diego'
     },
     {
-      id: 4,
+      id: 3,
       title: 'Crear el Logo',
       description:
         'Hola como estan hola como estan Hola como estan hola como estan Hola como estan hola como estan',
@@ -104,9 +104,16 @@ export const Kanban = () => {
   })
 
   const onSubmit = (e) => {
+
+    const ids = kanbanMessages.map(object => {
+      return object.id;
+    });
+    const max = Math.max(...ids);
+
     setKanbanMessages((oldKabanMessages) => [
       ...oldKabanMessages,
       {
+        id: max + 1,
         title: values.title.trim(),
         description: values.description.trim(),
         state: values.state,
@@ -129,16 +136,16 @@ export const Kanban = () => {
   } = formik
 
   const handleUpdateState = (id) => {
-    const message = kanbanMessages.filter((km) => km.id === id)
+    let message = kanbanMessages.filter((km) => km.id === id)
     console.log(message[0].id)
     const otherMessage = kanbanMessages.filter((km) => km.id !== id)
-    const test = [...otherMessage]
+    let test = [...otherMessage]
     let newState = 'Pendiente'
     if (message[0].state === 'Pendiente') newState = 'En Proceso'
     if (message[0].state === 'En Proceso') newState = 'Finalizado'
     if (message[0].state === 'Finalizado') newState = 'Pendiente'
     test.push({
-      id: message[0].id,
+      id,
       title: message[0].title,
       description: message[0].description,
       state: newState,
@@ -156,16 +163,13 @@ export const Kanban = () => {
         </s.KanbanCircle>
       )}
       {isExpanded && (
-        <>
-          <s.KanbanBox
-            right={'0.5rem'}
-            bottom="4rem"
-            width="20rem"
-            shadow="true"
-          >
-            <s.KanbanFormContainer>
-              <form onSubmit={handleSubmit} style={{ height: 'auto' }}>
-                <div> Nueva Tarea: </div>
+        <s.KanbanContainer style={{flexDirection: `${isPhone?'column':'row'}`}}>
+            <s.KanbanFormContainer>              
+              <form onSubmit={handleSubmit}>
+                <div style={{display: "flex", justifyContent:"space-between" }}>
+                  <div style={{width: "auto", fontSize: "1.2rem"}}> Nueva Tarea </div>
+                  <div style={{width: "auto", fontSize: "1.2rem", padding: "0px", color: "black", fontWeight: "bold"}} onClick={() => setIsExpanded(false)}>X</div>                
+                </div>
                 <input
                   type="text"
                   name="title"
@@ -262,72 +266,20 @@ export const Kanban = () => {
                 {errors.duration && touched.duration && (
                   <s.ErrorMsg>{errors.duration}</s.ErrorMsg>
                 )}
-                <button type="submit" style={{ alignSelf: 'flex-end' }}>
+                <button type="submit">
                   Enviar
                 </button>
               </form>
             </s.KanbanFormContainer>
-          </s.KanbanBox>
+          <s.KanbanBox>
 
           {!isPhone && (
-            <>
-              <s.KanbanBox
-                right={posX + 'rem'}
-                bottom="4rem"
-                width="12.5rem"
-                shadow="yes"
-              >
+            <>          
+                
+                <s.KanbanBoxBody heigth="400">
                 <s.KanbanBoxHeader>
-                  Tareas Finalizadas
-                  <s.KanbanBoxToggle onClick={() => setIsExpanded(false)}>
-                    X
-                  </s.KanbanBoxToggle>
+                  Tareas Pendientes                  
                 </s.KanbanBoxHeader>
-                <s.KanbanBoxBody heigth="400">
-                  <s.KanbanLogs>
-                    {kanbanMessages.map((item, index) => {
-                      if (item.state === 'Finalizado')
-                        return (
-                          <KanbanTask
-                            key={index}
-                            item={item}
-                            handleUpdateState={handleUpdateState}
-                          />
-                        )
-                    })}
-                  </s.KanbanLogs>
-                </s.KanbanBoxBody>
-              </s.KanbanBox>
-              <s.KanbanBox
-                right={posX - 13 + 'rem'}
-                bottom="4rem"
-                width="12.5rem"
-                shadow="yes"
-              >
-                <s.KanbanBoxHeader>Tareas En Proceso</s.KanbanBoxHeader>
-                <s.KanbanBoxBody heigth="400">
-                  <s.KanbanLogs>
-                    {kanbanMessages.map(
-                      (item, index) =>
-                        item.state === 'En Proceso' && (
-                          <KanbanTask
-                            key={index}
-                            item={item}
-                            handleUpdateState={handleUpdateState}
-                          />
-                        )
-                    )}
-                  </s.KanbanLogs>
-                </s.KanbanBoxBody>
-              </s.KanbanBox>
-              <s.KanbanBox
-                right={posX - 26 + 'rem'}
-                bottom="4rem"
-                width="12.5rem"
-                shadow="yes"
-              >
-                <s.KanbanBoxHeader>Tareas Pendientes</s.KanbanBoxHeader>
-                <s.KanbanBoxBody heigth="400">
                   <s.KanbanLogs>
                     {kanbanMessages.map((item, index) => {
                       if (item.state === 'Pendiente')
@@ -335,29 +287,50 @@ export const Kanban = () => {
                           <KanbanTask
                             key={index}
                             item={item}
-                            handleUpdateState={handleUpdateState}
+                            handleUpdateState={() => handleUpdateState(item.id)}
                           />
                         )
                     })}
                   </s.KanbanLogs>
-                </s.KanbanBoxBody>
-              </s.KanbanBox>
+                </s.KanbanBoxBody>                
+                <s.KanbanBoxBody heigth="400">
+                <s.KanbanBoxHeader>Tareas En Proceso</s.KanbanBoxHeader>
+                  <s.KanbanLogs>
+                    {kanbanMessages.map(
+                      (item, index) =>
+                        item.state === 'En Proceso' && (
+                          <KanbanTask
+                            key={index}
+                            item={item}
+                            handleUpdateState={() => handleUpdateState(item.id)}
+                          />
+                        )
+                    )}
+                  </s.KanbanLogs>
+                </s.KanbanBoxBody>              
+                
+                <s.KanbanBoxBody heigth="400">
+                <s.KanbanBoxHeader>Tareas Finalizadas</s.KanbanBoxHeader>
+                  <s.KanbanLogs>
+                    {kanbanMessages.map((item, index) => {
+                      if (item.state === 'Finalizado')
+                        return (
+                          <KanbanTask
+                            key={index}
+                            item={item}
+                            handleUpdateState={() => handleUpdateState(item.id)}
+                          />
+                        )
+                    })}
+                  </s.KanbanLogs>
+                </s.KanbanBoxBody>          
             </>
           )}
-          {isPhone && (
-            <s.KanbanBox
-              right={posX - 26 + 'rem'}
-              bottom="4rem"
-              width="12.5rem"
-              shadow="yes"
-            >
-              <s.KanbanBoxHeader>
-                Tareas
-                <s.KanbanBoxToggle onClick={() => setIsExpanded(false)}>
-                  X
-                </s.KanbanBoxToggle>
-              </s.KanbanBoxHeader>
+          {isPhone && ( 
+            <>              
               <s.KanbanBoxBody heigth="400">
+                <s.KanbanBoxHeader> Tareas                
+              </s.KanbanBoxHeader>
                 <s.KanbanLogs>
                   {kanbanMessages.map((item, index) => {
                     
@@ -365,16 +338,18 @@ export const Kanban = () => {
                         <KanbanTask
                           key={index}
                           item={item}
-                          handleUpdateState={handleUpdateState}
+                          handleUpdateState={() => handleUpdateState(item.id)}
                           showState="true"
                         />
                       )
                   })}
                 </s.KanbanLogs>
               </s.KanbanBoxBody>
-            </s.KanbanBox>
+              </>            
+            
           )}
-        </>
+          </s.KanbanBox>
+        </s.KanbanContainer>
       )}
     </>
   )
