@@ -1,9 +1,10 @@
-import { useAuthStore } from "../../hooks"
+import { useAuthStore, useChatStore } from "../../hooks"
 
 
 export const Navbar = () => {
 
   const { startLogout, user } = useAuthStore();
+  const { usersList } = useChatStore();
 
   return (
     <div className="navbar navbar-dark bg-dark mb-4 px-4">
@@ -12,9 +13,13 @@ export const Navbar = () => {
         <i className="fa-brands fa-asymmetrik"></i>
         &nbsp;
         Alcance App
-        </span>
+        </span>       
 
       <div>
+        { usersList?.length !== 0 &&
+        <span className="navbar-text"> Chat(  
+         { usersList?.length }) {" "}
+        </span>}
         <span className="navbar-text">
           { user.name }
         </span>
