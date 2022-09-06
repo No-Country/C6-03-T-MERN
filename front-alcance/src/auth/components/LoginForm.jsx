@@ -1,34 +1,42 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { BoxContainer, Input, MutedLink, FormContainer, SubmitButton, Marginer, BoldLink, AccountContext } from "../"
 import { useAuthStore, useForm } from "../../hooks";
+
 
 const loginFormFields = {
   loginEmail:    '',
   loginPassword: '',
 }
 
+
+
+
 export const LoginForm = () => {
-
   const { startLogin, errorMessage } = useAuthStore();
-
+  
   const { loginEmail, loginPassword, onInputChange:onLoginChange } = useForm( loginFormFields );
-
   const { switchToSignup } = useContext(AccountContext);
-
+  
+  // const [userEmail, setUserEmail] = useState('')
+  // setUserEmail(loginEmail)
+  
   const handleClick = async( event ) => {
     event.preventDefault();
     startLogin({ email: loginEmail, password: loginPassword });
-
   }
 
+  // useEffect(function(){
+  //   setUserEmail(loginEmail)
+  //   console.log('este es el user ' + userEmail)
+  // }, [startLogin])
+  
   useEffect(() => {
     if( errorMessage !== undefined ) {
       Swal.fire('Error en la auntenticación', errorMessage, 'error' );
     }
   }, [errorMessage])
-
-
+  
   return (
     <BoxContainer>
       <FormContainer onSubmit={ handleClick }>

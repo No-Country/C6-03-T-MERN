@@ -7,10 +7,10 @@ export default function ModalTeam({ projectsId }) {
         <div className="modal-team" key={i}>
           <p>Equipo {i + 1}</p>
           <div className="container-buttons">
-            <button class="ingresar">
+            <button className="ingresar">
               <p>Ingresar</p>
             </button>
-            <button class="eliminar">
+            <button className="eliminar">
               <p>Eliminar</p>
             </button>
           </div>
