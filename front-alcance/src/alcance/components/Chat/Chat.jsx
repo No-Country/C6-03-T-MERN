@@ -3,13 +3,15 @@ import * as s from './Chat.styles.js'
 import io from 'socket.io-client'
 import { joinRoom, leftRoom, sendNewMessage } from './conexion.js'
 import { useSelector} from "react-redux"
+import { useResize } from "../../../hooks"
 
   const endPoint = import.meta.env.VITE_URI_CHAT_SERVER
   console.log(endPoint)
   var socket = io(endPoint, {reconnection: false})  
 
 export const Chat = () => {
-  
+
+  const { isPhone } = useResize(550);  
   const { status, user : username, errorMessage } = useSelector( state => state.auth );
   console.log("user: " + username.name)
   console.log('Render Chat Component')
@@ -152,7 +154,7 @@ export const Chat = () => {
               </form>
             </s.ChatFormContainer>
           </s.ChatBox>
-          {isJoined && (
+          {isJoined && !isPhone && (
             <s.ChatBox right="380px" bottom="30px" width="160px" shadow="yes">
               <s.ChatBoxHeader>Usuarios</s.ChatBoxHeader>
               <s.ChatBoxBody heigth="400">

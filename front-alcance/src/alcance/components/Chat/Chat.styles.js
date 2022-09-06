@@ -102,7 +102,8 @@ export const ChatFormContainer = styled.div`
 
 export const ChatCircle = styled.div`
   position: fixed;  
-  right: 100px;
+  top: 0px;
+  right: 50%;
   background: #0d6efd;
   width: 70px;
   height: 70px;
@@ -111,7 +112,7 @@ export const ChatCircle = styled.div`
   padding-left: .9rem;
   padding-top: 1.4rem;
   cursor: pointer;
-  z-index: 2000;
+  z-index: 1000;
   &:hover {
     background: #004efd;
   }
