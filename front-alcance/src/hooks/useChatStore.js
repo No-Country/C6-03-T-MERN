@@ -1,19 +1,26 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { alcanceApi } from '../api'
-import { onGetUsersList } from '../store'
+import { onSetUsersList, onSetIsChatExpanded } from '../store'
 
 export const useChatStore = () => {
-  const { usersList } = useSelector((state) => state.chat)
+  const { usersList, isChatExpanded } = useSelector((state) => state.chat)
   const dispatch = useDispatch()
 
   const setUsersList = (list) => {
-    dispatch(onGetUsersList(list))
+    dispatch(onSetUsersList(list))
+  }
+
+  const setIsChatExpanded = (flag) => 
+  {
+    dispatch(onSetIsChatExpanded(flag))
   }
 
   return {
     //* Propiedades
     usersList,
+    isChatExpanded,
     //* Métodos
-    setUsersList
+    setUsersList,
+    setIsChatExpanded,
   }
 }

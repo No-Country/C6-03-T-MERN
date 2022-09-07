@@ -5,7 +5,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 
 import { localizer, getMessagesES } from "../../helpers";
-import { CalendarEventBox, CalendarModal, FabAddNew, FabDelete } from "../";
+import { CalendarEventBox, CalendarModal, FabAddNew, FabDelete, FabChat, FabKanban } from "../";
 import { useUiStore, useCalendarStore, useAuthStore } from "../../hooks";
 
 
@@ -75,6 +75,8 @@ export const CalendarComponent = () => {
       />
 
       <CalendarModal />
+      <FabKanban />
+      <FabChat />
       <FabAddNew />
       <FabDelete />
 

@@ -4,15 +4,18 @@ import { createSlice } from "@reduxjs/toolkit";
 export const chatSlice = createSlice({
   name: 'chat',
   initialState: {
-    usersList: []
+    usersList: [],
+    isChatExpanded: false,
   },
-  reducers: {
-    onGetUsersList: ( state, payload ) => {
-      state.usersList = payload.payload;
-      console.log(state.usersList);
+  reducers: {   
+    onSetUsersList: ( state, payload ) => {
+      state.usersList = payload.payload;      
+    },
+    onSetIsChatExpanded: ( state, payload ) => {
+      state.isChatExpanded = payload.payload;      
     },
   }
 });
 
 // Action creators are generated for each case reducer function
-export const { onGetUsersList } = chatSlice.actions;
+export const { onSetUsersList, onSetIsChatExpanded } = chatSlice.actions;

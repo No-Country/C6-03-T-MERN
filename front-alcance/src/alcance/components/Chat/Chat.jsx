@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import * as s from './Chat.styles.js'
+import {FabChat} from './FabChat'
 import io from 'socket.io-client'
 import { joinRoom, leftRoom, sendNewMessage } from './conexion.js'
 import { useSelector } from 'react-redux'
@@ -11,19 +12,18 @@ var socket = io(endPoint, { reconnection: false })
 
 export const Chat = () => {
   const { isPhone } = useResize(550)
-  const { usersList, setUsersList } = useChatStore()
+  const { usersList, setUsersList, isChatExpanded, setIsChatExpanded } = useChatStore()
   const {
     status,
     user: username,
     errorMessage
   } = useSelector((state) => state.auth)
-  console.log('user: ' + username.name)
-  console.log('Render Chat Component')
-  const [isExpanded, setIsExpanded] = useState(false)
+  
+  // console.log('user: ' + username.name)  
   const [user, setUser] = useState(
     username.name + Math.floor(Math.random() * 1000)
   )
-  // const [usersList, setUsersList] = useState([])
+
   const [isJoined, setIsJoined] = useState(false)
   const [newMessage, setNewMessage] = useState('')
   const [chatMessages, setChatMessages] = useState([])
@@ -101,11 +101,8 @@ export const Chat = () => {
   }
 
   return (
-    <>
-      {isExpanded === false && (
-        <s.ChatCircle onClick={() => setIsExpanded(true)}>Chat</s.ChatCircle>
-      )}
-      {isExpanded && (
+    <>      
+      {isChatExpanded && (
         <>
           <s.ChatBox right="25px" bottom="30px" width="350px" shadow="true">
             <s.ChatBoxHeader>
@@ -117,7 +114,7 @@ export const Chat = () => {
                 onChange={(e) => setUser(e.target.value)}
                 readOnly={true}
               />
-              <s.ChatBoxToggle onClick={() => setIsExpanded(false)}>
+              <s.ChatBoxToggle onClick={() => setIsChatExpanded(false)}>
                 X
               </s.ChatBoxToggle>
             </s.ChatBoxHeader>

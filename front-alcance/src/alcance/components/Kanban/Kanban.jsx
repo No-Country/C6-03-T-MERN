@@ -6,14 +6,14 @@ import { getEnvVariables } from '../../../helpers'
 const { VITE_API_URL } = getEnvVariables()
 import { useFormik } from 'formik'
 import * as yup from 'yup'
-import { useResize } from '../../../hooks'
+import { useResize, useKanbanStore } from '../../../hooks'
 
 export const Kanban = () => {
-  const { isPhone } = useResize(900)
   const posX = 47
+  const { isPhone } = useResize(900)
+  const { isKanbanExpanded, setIsKanbanExpanded, setTasksList, tasksList } = useKanbanStore()
   const [isLoading, setIsLoading] = useState(true)
-  const [userList, setUserList] = useState([])
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [userList, setUserList] = useState([])  
   const [kanbanMessages, setKanbanMessages] = useState([
     {
       id: 0,
@@ -66,9 +66,9 @@ export const Kanban = () => {
   const initialValues = {
     title: '',
     description: '',
-    state: '',
-    user: '',
-    difficulty: '',
+    state: 'DEFAULT',
+    user: 'DEFAULT',
+    difficulty: 'DEFAULT',
     duration: 1
   }
 
@@ -156,19 +156,14 @@ export const Kanban = () => {
   }
 
   return (
-    <>
-      {isExpanded === false && (
-        <s.KanbanCircle onClick={() => setIsExpanded(true)}>
-          Kanban
-        </s.KanbanCircle>
-      )}
-      {isExpanded && (
+    <>      
+      {isKanbanExpanded && (
         <s.KanbanContainer style={{flexDirection: `${isPhone?'column':'row'}`}}>
             <s.KanbanFormContainer>              
               <form onSubmit={handleSubmit}>
                 <div style={{display: "flex", justifyContent:"space-between" }}>
                   <div style={{width: "auto", fontSize: "1.2rem"}}> Nueva Tarea </div>
-                  <div style={{width: "auto", fontSize: "1.2rem", padding: "0px", color: "black", fontWeight: "bold"}} onClick={() => setIsExpanded(false)}>X</div>                
+                  <div style={{width: "auto", fontSize: "1.2rem", padding: "0px", color: "black", fontWeight: "bold"}} onClick={() => setIsKanbanExpanded(false)}>X</div>                
                 </div>
                 <input
                   type="text"
@@ -200,7 +195,7 @@ export const Kanban = () => {
                   onBlur={handleBlur}
                   value={values.state}
                 >
-                  <option value="" disabled selected hidden>
+                  <option value="DEFAULT" disabled hidden>
                     Estado
                   </option>
                   <option value="Pendiente">Pendiente</option>
@@ -216,7 +211,7 @@ export const Kanban = () => {
                   onBlur={handleBlur}
                   value={values.user}
                 >
-                  <option value="" disabled selected hidden>
+                  <option value="DEFAULT" disabled hidden>
                     Usuario
                   </option>
                   {!isLoading &&
@@ -238,13 +233,13 @@ export const Kanban = () => {
                 {errors.user && touched.user && (
                   <s.ErrorMsg>{errors.user}</s.ErrorMsg>
                 )}
-                <select
+                <select 
                   name="difficulty"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.difficulty}
                 >
-                  <option value="" disabled selected hidden>
+                  <option value="DEFAULT" disabled hidden>
                     Dificultad
                   </option>
                   <option value="Facil">Facil</option>
