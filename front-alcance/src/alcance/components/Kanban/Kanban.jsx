@@ -25,9 +25,9 @@ export const Kanban = () => {
     },
     {
       id: 1,
-      title: 'Hacer el Register',
+      title: 'Haz',
       description:
-        'Hola como estan hola como estan Hola como estan hola como estan Hola como estan hola como estan',
+        'Hola',
       state: 'En Proceso',
       username: 'German'
     },
@@ -276,10 +276,8 @@ export const Kanban = () => {
           {!isPhone && (
             <>          
                 
-                <s.KanbanBoxBody heigth="400">
-                <s.KanbanBoxHeader>
-                  Tareas Pendientes                  
-                </s.KanbanBoxHeader>
+                <s.KanbanBoxBody>
+                <s.KanbanBoxHeader> Tareas Pendientes </s.KanbanBoxHeader>
                   <s.KanbanLogs>
                     {kanbanMessages.map((item, index) => {
                       if (item.state === 'Pendiente')
@@ -293,11 +291,10 @@ export const Kanban = () => {
                     })}
                   </s.KanbanLogs>
                 </s.KanbanBoxBody>                
-                <s.KanbanBoxBody heigth="400">
+                <s.KanbanBoxBody>
                 <s.KanbanBoxHeader>Tareas En Proceso</s.KanbanBoxHeader>
                   <s.KanbanLogs>
-                    {kanbanMessages.map(
-                      (item, index) =>
+                    {kanbanMessages.map((item, index) =>
                         item.state === 'En Proceso' && (
                           <KanbanTask
                             key={index}
@@ -309,7 +306,7 @@ export const Kanban = () => {
                   </s.KanbanLogs>
                 </s.KanbanBoxBody>              
                 
-                <s.KanbanBoxBody heigth="400">
+                <s.KanbanBoxBody>
                 <s.KanbanBoxHeader>Tareas Finalizadas</s.KanbanBoxHeader>
                   <s.KanbanLogs>
                     {kanbanMessages.map((item, index) => {
@@ -328,9 +325,8 @@ export const Kanban = () => {
           )}
           {isPhone && ( 
             <>              
-              <s.KanbanBoxBody heigth="400">
-                <s.KanbanBoxHeader> Tareas                
-              </s.KanbanBoxHeader>
+              <s.KanbanBoxBody100>
+                <s.KanbanBoxHeader> Tareas </s.KanbanBoxHeader>
                 <s.KanbanLogs>
                   {kanbanMessages.map((item, index) => {
                     
@@ -344,7 +340,7 @@ export const Kanban = () => {
                       )
                   })}
                 </s.KanbanLogs>
-              </s.KanbanBoxBody>
+              </s.KanbanBoxBody100>
               </>            
             
           )}

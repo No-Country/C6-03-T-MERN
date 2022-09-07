@@ -21,27 +21,30 @@ export const KanbanBox = styled.div`
 `
 export const KanbanBoxHeader = styled.div`
   background: #5a5eb9;  
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  min-width: 12.5rem;
+  width: 100%;
   color: white;
   text-align: center;
-  font-size: 1rem;
-  padding-top: 0.5rem;
+  font-size: 1rem;  
 `
 export const KanbanBoxBody = styled.div`    
   border: 1px solid #ccc;
   border-radius: 5px; 
-  background: #efefef;
-  overflow-y: scroll;
+  background: #efefef;     
 `
+export const KanbanBoxBody100 = styled.div`    
+  border: 1px solid #ccc;
+  border-radius: 5px; 
+  background: #efefef; 
+  min-width: 100%;
+`
+
 export const KanbanBoxToggle = styled.div`
   display: flex;  
   justify-content  : flex-end ;
   width: 1rem;
 `
 export const KanbanFormContainer = styled.div`    
-  padding: 0.5rem; 
-  margin: 0.5rem; 
   border: 1px solid #ccc;
   border-radius: 5px;
   color: #888;  
@@ -49,33 +52,34 @@ export const KanbanFormContainer = styled.div`
   border-bottom-left-radius: 5px;  
   background: #efefef;  
   max-height: 45rem;  
-  max-width: 25rem;
+  margin-bottom: 1rem;
+  
   &::placeholder {
     color: #888;
   }
   form {
-    margin-bottom: 0;
+    margin: 0 auto;
     display: flex;
-    flex-direction: column;            
+    flex-direction: column;
+    width: 95%;                
   }  
 
-  input, select, div, textarea {    
-    margin: 0;
-    margin-right: 0.5rem;
+  input, select, div, textarea {            
     margin-bottom: 0.5rem;
-    padding-left: 1rem;
+    padding-left: 1rem;    
     width: 100%;
     font-size: 0.9rem;
     border: 0;
-    border-radius: 5px;       
+    border-radius: 0.3rem;       
   }
   button {    
     width: auto;
     max-width: 5rem;
     align-self: flex-end;
     border: 1px solid gray;
-    border-radius: 10px;
-    margin-right: 3px;
+    border-radius: 0.3rem;
+    margin-right: 0.1rem;
+    margin-bottom: 0.5rem;
   }
 `
 
@@ -87,9 +91,7 @@ export const KanbanCircle = styled.div`
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  color: white;
-  padding-left: .3rem;
-  padding-top: 1.4rem;
+  color: white;  
   cursor: pointer;
   z-index: 1;
   &:hover {
@@ -102,24 +104,17 @@ export const KanbanCircle = styled.div`
 export const KanbanLogs = styled.div`
   display: flex;
   flex-direction: column;  
-  flex-wrap: nowrap;
-  padding: 0.8rem;  
+  flex-wrap: nowrap;  
   overflow-y: hidden;
   overflow-x: hidden;  
   width: 100%;
 `
 
-export const Log = styled.div`
-  margin: 10px auto;
-  padding: 10px;
-  color: black;
-  font-size: 0.8rem;  
-  position: relative;
-  border-radius: 5px;  
-  width: 95%;
+export const Log = styled.div`          
   box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6);
   background-color: ${'#dcf8c6'};
-  align-self: "center";    
+  align-self: "center";   
+  padding: 0.5rem;   
 `
 export const Author = styled.div`
 font-size: 0.7rem;
@@ -130,6 +125,7 @@ font-size: 1rem;
 color: #5865c3;
 `
 export const Text = styled.div`
+width: auto;
 `
 
 export const UserListContainer = styled.div`
@@ -137,17 +133,9 @@ export const UserListContainer = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
-  flex-wrap: nowrap;
-  padding-top: 5px;
+  flex-wrap: nowrap;  
   height: 415px;
   overflow-y: hidden;  
-`
-
-export const UserList = styled.div`
-  ul {
-    list-style: none;
-    padding-left: 1rem;
-  }
 `
 
 export const ErrorMsg = styled.div`

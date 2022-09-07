@@ -2,27 +2,33 @@ import { useState, useEffect, useRef } from 'react'
 import * as s from './Chat.styles.js'
 import io from 'socket.io-client'
 import { joinRoom, leftRoom, sendNewMessage } from './conexion.js'
-import { useSelector} from "react-redux"
-import { useResize } from "../../../hooks"
+import { useSelector } from 'react-redux'
+import { useResize, useChatStore } from '../../../hooks'
 
-  const endPoint = import.meta.env.VITE_URI_CHAT_SERVER
-  console.log(endPoint)
-  var socket = io(endPoint, {reconnection: false})  
+const endPoint = import.meta.env.VITE_URI_CHAT_SERVER
+console.log(endPoint)
+var socket = io(endPoint, { reconnection: false })
 
 export const Chat = () => {
-
-  const { isPhone } = useResize(550);  
-  const { status, user : username, errorMessage } = useSelector( state => state.auth );
-  console.log("user: " + username.name)
+  const { isPhone } = useResize(550)
+  const { usersList, setUsersList } = useChatStore()
+  const {
+    status,
+    user: username,
+    errorMessage
+  } = useSelector((state) => state.auth)
+  console.log('user: ' + username.name)
   console.log('Render Chat Component')
   const [isExpanded, setIsExpanded] = useState(false)
-  const [user, setUser] = useState(username.name + Math.floor(Math.random() * 1000))
-  const [usersList, setUsersList] = useState([])
+  const [user, setUser] = useState(
+    username.name + Math.floor(Math.random() * 1000)
+  )
+  // const [usersList, setUsersList] = useState([])
   const [isJoined, setIsJoined] = useState(false)
   const [newMessage, setNewMessage] = useState('')
-  const [chatMessages, setChatMessages] = useState([])  
+  const [chatMessages, setChatMessages] = useState([])
 
-  const bottomRef = useRef(null)  
+  const bottomRef = useRef(null)
 
   useEffect(() => {
     socket.on('receive_message', (data) => {
@@ -33,7 +39,7 @@ export const Chat = () => {
     })
 
     socket.on('have_joined_room', (data) => {
-      console.log("User se unio al chat")
+      console.log('User se unio al chat')
       setChatMessages((oldChatMessages) => [
         ...oldChatMessages,
         { author: data.author, message: data.message }
@@ -48,13 +54,14 @@ export const Chat = () => {
     })
 
     socket.io.on('error', (error) => {
-      console.log('error: ' + error)      
+      console.log('error: ' + error)
       setIsJoined(false)
     })
 
     socket.on('update_users_list', (data) => {
       console.log('updating list')
-      setUsersList(data)
+      // setUsersList(data) // Store locally
+      setUsersList(data) // Store User List in Redux
     })
   }, [socket])
 
@@ -79,7 +86,8 @@ export const Chat = () => {
   }
 
   const handleJoinRoom = async () => {
-    if (socket.connected == false) socket = io(endPoint, {reconnection: false})
+    if (socket.connected == false)
+      socket = io(endPoint, { reconnection: false })
     joinRoom(socket, user)
     setIsJoined(true)
   }
@@ -88,15 +96,14 @@ export const Chat = () => {
     leftRoom(socket, user)
     setIsJoined(false)
     setChatMessages([])
+    // setUsersList([])
     setUsersList([])
   }
 
   return (
     <>
       {isExpanded === false && (
-        <s.ChatCircle onClick={() => setIsExpanded(true)}>          
-          Chat
-        </s.ChatCircle>
+        <s.ChatCircle onClick={() => setIsExpanded(true)}>Chat</s.ChatCircle>
       )}
       {isExpanded && (
         <>
@@ -163,7 +170,7 @@ export const Chat = () => {
                     {
                       <ul>
                         {usersList.map((item, index) => (
-                          <li key={index + 100}> 👨‍💼 {item.user} </li>
+                          <li key={item.id}> 👨‍💼 {item.user} </li>
                         ))}
                       </ul>
                     }
