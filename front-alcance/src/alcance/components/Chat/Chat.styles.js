@@ -99,27 +99,6 @@ export const ChatFormContainer = styled.div`
     margin-right: 3px;
   }
 `
-
-export const ChatCircle = styled.div`
-  position: fixed;  
-  top: 0px;
-  right: 50%;
-  background: #0d6efd;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  color: white;
-  padding-left: .9rem;
-  padding-top: 1.4rem;
-  cursor: pointer;
-  z-index: 1000;
-  &:hover {
-    background: #004efd;
-  }
-  /* box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6),
-    0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); */ 
-`
-
 export const ChatLogs = styled.div`
   display: flex;
   flex-direction: column;
