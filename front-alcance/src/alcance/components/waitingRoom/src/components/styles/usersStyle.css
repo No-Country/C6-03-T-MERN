@@ -8,7 +8,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 10px;
   margin: auto;
   font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
@@ -50,9 +49,10 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-bottom: solid 2px rgb(0, 0, 0, 0.537);
+  padding: 0 0.5em;
+  border:solid 2px;
+  border-top: none;
   width: 100%;
-  padding: 5px 0 5px 0px;
 }
 .modal-team p {
   font-size: 18px;
@@ -65,8 +65,7 @@ body {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 3px;
 }
 
 .modal-team p {
@@ -137,6 +136,10 @@ body {
 
 
 .container-teams h5 {
+  border: 2px solid;
+  border-bottom: 0px;
+  border-top: none;
+  padding: 0.3em 0 0.5em;
   color: rgb(33, 37, 41);
   margin: auto;
   text-align: center;
@@ -224,7 +227,7 @@ div.formCreate button.x-button{
   align-items: center;
   display: flex;
   margin-bottom: 1em;
-  padding: 0.3em;
+  padding: 0.1em;
 }
 
 .container-input label{

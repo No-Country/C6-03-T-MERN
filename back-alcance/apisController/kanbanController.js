@@ -70,10 +70,13 @@ const kanbanController = {
     },
     editKanban : async (req, res) =>{
       const { title, category} = req.body;
-      
-      const kanbanEdited = { title, category }
-      await Kanban.findByIdAndUpdate(req.params.id, kanbanEdited)
-      res.json({status : 'Kanban updated'}) 
+      try{
+        const kanbanEdited = { title, category }
+        await Kanban.findByIdAndUpdate(req.params.id, kanbanEdited)
+        res.json({status : 'Kanban updated'}) 
+      } catch(error){
+        res.send(error);
+      }
     },
     deleteKanban : async (req, res)=>{
       const kanban = await Kanban.findById(req.params.id)
@@ -82,7 +85,7 @@ const kanbanController = {
       let kanbanIndex = project.kanban.indexOf(req.params.id)
       project.kanban.splice(kanbanIndex, 1)
       const kanbanProjectUpdated = { kanban : project.kanban }
-
+    try{
       let taskForKanban = kanban.tasks
       async function deletedTask(){
         taskForKanban.forEach(task =>{
@@ -96,7 +99,10 @@ const kanbanController = {
       await Project.findByIdAndUpdate(kanban.projectId, kanbanProjectUpdated)
       await Kanban.findByIdAndDelete(req.params.id);
       res.json({status : 'Kanban deleted and Project updated'})
+    } catch(error){
+      res.send(error);
     }
+  }
 }
 
 module.exports = kanbanController;

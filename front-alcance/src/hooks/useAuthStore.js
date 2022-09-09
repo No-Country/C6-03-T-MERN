@@ -15,7 +15,7 @@ export const useAuthStore = () => {
       const { data } = await alcanceApi.post('/auth', { email, password });
       localStorage.setItem('token', data.token );
       localStorage.setItem('token-init-date', new Date().getDate() );
-      dispatch( onLogin({ name: data.name, uid: data.uid }) );
+      dispatch( onLogin({ name: data.name, uid: data.uid, email: data.email }) );
 
     } catch (error) {
       console.log(error);

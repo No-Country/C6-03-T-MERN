@@ -4,17 +4,22 @@ const { VITE_API_URL } = getEnvVariables()
 import { getEnvVariables } from '../../../../../helpers'
 import { editProjects } from "../apis/notasApis"
 
-export default function AddTeam() {
+export default function AddTeam({ infoUser }) {
+  console.log(infoUser)
   return (
     <div className="addTeam-modal">
        <Formik id='as'
                 initialValues={{
-                  codeProject: "",
+                  _id: "",
+                  users: "",
+                  // codeProject: "",
                 }}
                 onSubmit={async (values, actions)=>{
-                    console.log(values)
+                    values.users = infoUser.uid
+                    let idProject = values._id 
+                  // console.log(values)
                     try{
-                        const response = await editProjects(values)
+                        const response = await editProjects(idProject, values)
                         console.log(response)
                         actions.resetForm()
                     } catch(error){
@@ -29,9 +34,9 @@ export default function AddTeam() {
                         <input 
                           type="text"
                           placeholder="Ingrese el codigo"
-                          name="codeProject"
+                          name="_id"
                           onChange={handleChange} 
-                          value={values.codeProject}  
+                          value={values._id}  
                         />
                     </div>
                     <button type="submit">Unirse</button>

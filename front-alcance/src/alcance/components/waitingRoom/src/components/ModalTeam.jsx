@@ -1,11 +1,11 @@
 import "./styles/usersStyle.css";
 
-export default function ModalTeam({ projectsId }) {
+export default function ModalTeam({ projectsMatchUser }) {
   return (
     <div className="container-modalTeam">
-      {projectsId.map((project, i) => (
+      {projectsMatchUser.map((project, i) => (
         <div className="modal-team" key={i}>
-          <p>Equipo {i + 1}</p>
+          <p key={i}>{project.name}</p>
           <div className="container-buttons">
             <button className="ingresar">
               <p>Ingresar</p>

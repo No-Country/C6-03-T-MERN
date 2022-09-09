@@ -84,7 +84,11 @@ const usersController = {
       },
       data: user,
     };
-    res.json(response);
+    try {
+      res.json(response);
+    } catch (error) {
+      res.send(error);
+    }
   },
   userEdit: async (req, res) => {
     const { username, password, role, email, country, projectId } = req.body;
@@ -106,10 +110,15 @@ const usersController = {
       country,
       projectId: userProjects,
     };
-    await Usuario.findByIdAndUpdate(req.params.id, editUser);
-    res.json({ status: "User updated" });
+    try {
+      await Usuario.findByIdAndUpdate(req.params.id, editUser);
+      res.json({ status: "User updated" });
+    } catch (error) {
+      res.send(error);
+    }
   },
   userDelete: async (req, res) => {
+    try {
     const user = await Usuario.findById(req.params.id);
     projectsOfUser = [];
     user.projectId.forEach((project) => {
@@ -118,39 +127,47 @@ const usersController = {
 
     async function deletedUserForProjects() {
       projectsOfUser.forEach((project) => {
-        Project.findById(project).then(function (result) {
-          let projectFind = result;
-          let userIndex = projectFind.users.indexOf(req.params.id);
-          projectFind.users.splice(userIndex, 1);
-          let userProjectUpdated = { users: projectFind.users };
+        Project.findById(project)
+          .then(function (result) {
+            let projectFind = result;
+            let userIndex = projectFind.users.indexOf(req.params.id);
+            projectFind.users.splice(userIndex, 1);
+            let userProjectUpdated = { users: projectFind.users };
 
-          Project.findByIdAndUpdate(project, userProjectUpdated).then(
-            function () {}
+            Project.findByIdAndUpdate(project, userProjectUpdated).then(
+              function () {}
           );
         });
       });
     }
     deletedUserForProjects();
 
-    await Usuario.findByIdAndDelete(req.params.id);
-    res.json({
-      status: "User deleted",
-      msg: "User deleted in this projects" + projectsOfUser,
-    });
+      await Usuario.findByIdAndDelete(req.params.id);
+      res.json({
+        status: "User deleted",
+        msg: "User deleted in this projects" + projectsOfUser,
+      });
+    } catch (error) {
+      res.send(error);
+    }
   },
 
   findProject: async (req, res) => {
-    const user = await Usuario.findById(req.params.id);
-    const response = {
-      meta: {
+    try {
+      const user = await Usuario.findById(req.params.id);
+      const response = {
+        meta: {
         status: 200,
         url: "/api/v1/users/:id/p",
         total: user.length,
-      },
-      proyectos: user.projectId,
+        },
+        proyectos: user.projectId,
     };
-    res.json(response);
-  },
+    res.json(response);   
+    } catch (error) {
+      res.send(error);
+    }
+  }
 };
 
 module.exports = usersController;

@@ -30,6 +30,7 @@ const projectsController = {
     }
   },
   listProject: async (req, res) => {    
+    try {
     Project.find({}, (error, projects) => {
       if (error) {
         res.send(error)
@@ -44,9 +45,13 @@ const projectsController = {
         }
         res.json(response)
       }
-    }).sort({ _id: -1 })
+    }).sort({ _id: -1 })  
+    } catch (error) {
+      res.send(error);
+    }
   },
   findOneProject : async(req, res) =>{
+    try {
     const project = await Project.findById(req.params.id)
     const response = {
       meta: {
@@ -56,12 +61,15 @@ const projectsController = {
       },
       data: project              
     }
-    res.json(response)
+    res.json(response) 
+    } catch (error) {
+      res.send(error);
+    }
   },
   editProject : async (req, res) =>{
     const { name, users, startTime, endTime, notes, kanban } = req.body;
     let projectEdit = await Project.findById(req.params.id)
-
+    
     let projectUsers
     if(req.body.users == null){
       projectUsers = projectEdit.users
@@ -77,32 +85,36 @@ const projectsController = {
       projectKanban = projectEdit.kanban;
       projectKanban.push(kanban);
     }
-
+    
     let projectNotes
     if(req.body.notes == null){
-      projectNotes = projectEdit.notes
     } else {
       projectNotes = projectEdit.notes;
       projectNotes.push(notes);
     }
     
+  try {
     const newProject = { name:name, users:projectUsers, startTime: startTime, endTime:endTime, kanban:projectKanban, notes:projectNotes }
     await Project.findByIdAndUpdate(req.params.id, newProject)
     res.json({status : 'Project updated'}) 
-  },
-  deleteProject : async (req, res)=>{
-    const project = await Project.findById(req.params.id)
-    kanbanOfProject = []
-    project.kanban.forEach(kanban => {
-      kanbanOfProject.push(kanban)
-    })
-    console.log('////Estos son los kanbanId del proyecto: ' + kanbanOfProject)
-    async function findTaskForKanban(){
-      kanbanOfProject.forEach(kanban =>{
-          let kanbanFind = Kanban.findById(kanban)
-          .then(function(result){
-            let tasksForKanban = result.tasks
-            console.log('////Estos son los id de las tasks encontradas: ' + tasksForKanban)
+  } catch (error) {
+    res.send(error);
+  }
+},
+deleteProject : async (req, res)=>{
+  const project = await Project.findById(req.params.id)
+  kanbanOfProject = []
+  project.kanban.forEach(kanban => {
+    kanbanOfProject.push(kanban)
+  })
+  console.log('////Estos son los kanbanId del proyecto: ' + kanbanOfProject)
+  async function findTaskForKanban(){
+    kanbanOfProject.forEach(kanban =>{
+      let kanbanFind = Kanban.findById(kanban)
+      .then(function(result){
+        let tasksForKanban = result.tasks
+        console.log('////Estos son los id de las tasks encontradas: ' + tasksForKanban)
+      projectNotes = projectEdit.notes
             tasksForKanban.forEach(taskForDelete =>{
               console.log('Esta es la tarea a eliminar ' + taskForDelete)
               Task.findByIdAndDelete(taskForDelete)
@@ -134,8 +146,12 @@ const projectsController = {
     }
     deletedNotes();
 
+    try {
     await Project.findByIdAndDelete(req.params.id);
     res.json({status : 'Project deleted'})
+    } catch (error) {
+      res.send(error);
+    }
 }
 }
 
